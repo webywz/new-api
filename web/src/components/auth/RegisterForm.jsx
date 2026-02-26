@@ -562,17 +562,17 @@ const RegisterForm = () => {
     return (
       <div className='flex flex-col items-center'>
         <div className='w-full max-w-md'>
-          <div className='flex items-center justify-center mb-6 gap-2'>
+          {/* <div className='flex items-center justify-center mb-6 gap-2'>
             <img src={logo} alt='Logo' className='h-10' />
             <Title heading={3} className='!text-slate-900'>
               {systemName}
             </Title>
-          </div>
+          </div> */}
 
           <Card className='border border-gray-200 !rounded-2xl overflow-hidden bg-white'>
             <div className='flex justify-center pt-6 pb-2'>
               <Title heading={3} className='text-slate-900'>
-                {t('注 册')}
+                {t('注册账户')}
               </Title>
             </div>
             <div className='px-2 py-8'>
@@ -583,27 +583,36 @@ const RegisterForm = () => {
                   placeholder={t('请输入用户名')}
                   name='username'
                   onChange={(value) => handleChange('username', value)}
-                  prefix={<IconUser />}
+                  prefix={<IconUser className='text-gray-400' />}
+                  className='!rounded-xl !h-12 !bg-gray-50 border-gray-200 hover:!bg-white focus:!bg-white focus:!border-blue-500 transition-all duration-200'
+                  noLabel={true}
+                  size='large'
                 />
 
                 <Form.Input
                   field='password'
                   label={t('密码')}
-                  placeholder={t('输入密码，最短 8 位，最长 20 位')}
+                  placeholder={t('请输入密码')}
                   name='password'
                   mode='password'
                   onChange={(value) => handleChange('password', value)}
-                  prefix={<IconLock />}
+                  prefix={<IconLock className='text-gray-400' />}
+                  className='!rounded-xl !h-12 !bg-gray-50 border-gray-200 hover:!bg-white focus:!bg-white focus:!border-blue-500 transition-all duration-200'
+                  noLabel={true}
+                  size='large'
                 />
 
                 <Form.Input
                   field='password2'
                   label={t('确认密码')}
-                  placeholder={t('确认密码')}
+                  placeholder={t('请再次输入密码')}
                   name='password2'
                   mode='password'
                   onChange={(value) => handleChange('password2', value)}
-                  prefix={<IconLock />}
+                  prefix={<IconLock className='text-gray-400' />}
+                  className='!rounded-xl !h-12 !bg-gray-50 border-gray-200 hover:!bg-white focus:!bg-white focus:!border-blue-500 transition-all duration-200'
+                  noLabel={true}
+                  size='large'
                 />
 
                 {showEmailVerification && (
@@ -611,89 +620,108 @@ const RegisterForm = () => {
                     <Form.Input
                       field='email'
                       label={t('邮箱')}
-                      placeholder={t('输入邮箱地址')}
+                      placeholder={t('请输入邮箱地址')}
                       name='email'
-                      type='email'
                       onChange={(value) => handleChange('email', value)}
-                      prefix={<IconMail />}
-                      suffix={
-                        <Button
-                          onClick={sendVerificationCode}
-                          loading={verificationCodeLoading}
-                          disabled={disableButton || verificationCodeLoading}
-                        >
-                          {disableButton
-                            ? `${t('重新发送')} (${countdown})`
-                            : t('获取验证码')}
-                        </Button>
-                      }
+                      prefix={<IconMail className='text-gray-400' />}
+                      className='!rounded-xl !h-12 !bg-gray-50 border-gray-200 hover:!bg-white focus:!bg-white focus:!border-blue-500 transition-all duration-200'
+                      noLabel={true}
+                      size='large'
                     />
                     <Form.Input
                       field='verification_code'
                       label={t('验证码')}
-                      placeholder={t('输入验证码')}
+                      placeholder={t('请输入验证码')}
                       name='verification_code'
-                      onChange={(value) =>
-                        handleChange('verification_code', value)
+                      onChange={(value) => handleChange('verification_code', value)}
+                      prefix={<IconKey className='text-gray-400' />}
+                      className='!rounded-xl !h-12 !bg-gray-50 border-gray-200 hover:!bg-white focus:!bg-white focus:!border-blue-500 transition-all duration-200'
+                      noLabel={true}
+                      size='large'
+                      suffix={
+                        <Button
+                          theme='solid'
+                          type='primary'
+                          onClick={sendVerificationCode}
+                          disabled={verificationCodeLoading || disableButton}
+                          className='mr-1 !rounded-lg !h-8 !px-3 !bg-blue-100 !text-blue-600 hover:!bg-blue-200 hover:!text-blue-700 !border-none !font-medium'
+                        >
+                          {disableButton
+                            ? `${t('重发')} (${countdown})`
+                            : t('发送')}
+                        </Button>
                       }
-                      prefix={<IconKey />}
                     />
                   </>
                 )}
 
-                {(hasUserAgreement || hasPrivacyPolicy) && (
-                  <div className='pt-4'>
-                    <Checkbox
-                      checked={agreedToTerms}
-                      onChange={(e) => setAgreedToTerms(e.target.checked)}
-                    >
-                      <Text size='small' className='text-gray-600'>
-                        {t('我已阅读并同意')}
-                        {hasUserAgreement && (
-                          <>
-                            <a
-                              href='/user-agreement'
-                              target='_blank'
-                              rel='noopener noreferrer'
-                              className='text-blue-600 hover:text-blue-800 mx-1'
-                            >
-                              {t('用户协议')}
-                            </a>
-                          </>
-                        )}
-                        {hasUserAgreement && hasPrivacyPolicy && t('和')}
-                        {hasPrivacyPolicy && (
-                          <>
-                            <a
-                              href='/privacy-policy'
-                              target='_blank'
-                              rel='noopener noreferrer'
-                              className='text-blue-600 hover:text-blue-800 mx-1'
-                            >
-                              {t('隐私政策')}
-                            </a>
-                          </>
-                        )}
-                      </Text>
-                    </Checkbox>
-                  </div>
+                {!status.email_verification && (
+                  <Form.Input
+                    field='invite_code'
+                    label={t('邀请码')}
+                    placeholder={t('请输入邀请码（可选）')}
+                    name='invite_code'
+                    onChange={(value) => handleChange('invite_code', value)}
+                    prefix={<IconUser className='text-gray-400' />}
+                    className='!rounded-xl !h-12 !bg-gray-50 border-gray-200 hover:!bg-white focus:!bg-white focus:!border-blue-500 transition-all duration-200'
+                    noLabel={true}
+                    size='large'
+                  />
                 )}
 
-                <div className='space-y-2 pt-2'>
+                <div className='flex items-center justify-between pt-2 pb-2'>
+                  <Checkbox
+                    checked={agreedToTerms}
+                    onChange={(e) => setAgreedToTerms(e.target.checked)}
+                  >
+                    <Text className='text-gray-500 hover:text-gray-700 transition-colors'>
+                      {t('我已阅读并同意')}
+                    </Text>
+                  </Checkbox>
+                </div>
+
+                <div className='pt-2'>
                   <Button
                     theme='solid'
-                    className='w-full !rounded-xl'
                     type='primary'
                     htmlType='submit'
+                    className='w-full !h-12 !rounded-xl !text-base !font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 border-none shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5'
                     onClick={handleSubmit}
                     loading={registerLoading}
-                    disabled={
-                      (hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms
-                    }
+                    disabled={registerLoading || !agreedToTerms}
                   >
                     {t('注册')}
                   </Button>
                 </div>
+
+                {(hasUserAgreement || hasPrivacyPolicy) && (
+                  <div className='flex items-center justify-center pt-4 text-xs text-gray-400'>
+                    <span>
+                      {t('注册即代表您同意')}
+                      {hasUserAgreement && (
+                        <a
+                          href='/user-agreement'
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          className='text-blue-600 hover:text-blue-800 mx-1'
+                        >
+                          {t('用户协议')}
+                        </a>
+                      )}
+                      {hasUserAgreement && hasPrivacyPolicy && t('和')}
+                      {hasPrivacyPolicy && (
+                        <a
+                          href='/privacy-policy'
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          className='text-blue-600 hover:text-blue-800 mx-1'
+                        >
+                          {t('隐私政策')}
+                        </a>
+                      )}
+                    </span>
+                  </div>
+                )}
               </Form>
 
               {hasOAuthRegisterOptions && (
@@ -774,22 +802,27 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className='min-h-screen w-full flex bg-slate-50 relative overflow-hidden'>
+    <div className='min-h-screen w-full flex items-center justify-center bg-slate-50 relative overflow-hidden p-4 sm:p-6'>
       {/* 背景装饰 */}
-      <div className='absolute top-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-blue-100/50 blur-[120px] pointer-events-none' />
-      <div className='absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-100/50 blur-[120px] pointer-events-none' />
+      <div className='absolute top-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-blue-100/40 blur-[100px] pointer-events-none' />
+      <div className='absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-100/40 blur-[100px] pointer-events-none' />
 
-      <div className='flex flex-1 flex-col lg:flex-row max-w-[1920px] mx-auto z-10'>
-        {/* 左侧：价值主张区 */}
-        <div className='hidden lg:flex flex-1 flex-col justify-center px-12 xl:px-24 relative'>
-          <div className='max-w-xl'>
-            <div className='inline-flex items-center px-3 py-1 rounded-full bg-white border border-blue-100 shadow-sm mb-6 w-fit'>
+      <div className='w-full max-w-6xl bg-white/70 backdrop-blur-xl rounded-[32px] shadow-[0_24px_60px_-12px_rgba(0,0,0,0.1)] border border-white/60 overflow-hidden flex flex-col lg:flex-row relative z-10 min-h-[600px] lg:min-h-[720px]'>
+        
+        {/* 左侧：价值主张区 - 加深背景增加对比度 */}
+        <div className='hidden lg:flex flex-1 flex-col justify-center px-12 xl:px-20 relative bg-slate-50/50'>
+          {/* 装饰圆点 */}
+          <div className='absolute top-12 right-12 w-20 h-20 bg-blue-200/20 rounded-full blur-2xl'></div>
+          <div className='absolute bottom-12 left-12 w-32 h-32 bg-indigo-200/20 rounded-full blur-3xl'></div>
+          
+          <div className='max-w-lg relative z-10'>
+            <div className='inline-flex items-center px-3 py-1 rounded-full bg-white border border-blue-100 shadow-sm mb-8 w-fit'>
               <span className='w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse'></span>
               <span className='text-xs font-medium text-blue-700 tracking-wide'>
                 {t('立即加入数千家企业')}
               </span>
             </div>
-            <h1 className='text-4xl xl:text-5xl font-bold text-slate-900 leading-tight mb-6'>
+            <h1 className='text-4xl font-bold text-slate-900 leading-tight mb-6'>
               {t('开启您的')} <br />
               <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600'>
                 {t('AI 创新之旅')}
@@ -801,48 +834,48 @@ const RegisterForm = () => {
               )}
             </p>
 
-            <div className='grid grid-cols-2 gap-5'>
-              <div className='p-5 bg-white/60 backdrop-blur-sm border border-white/50 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 group'>
+            <div className='grid grid-cols-2 gap-4'>
+              <div className='p-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 group'>
                 <div className='w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center mb-3 group-hover:bg-blue-600 transition-colors duration-300'>
                   <IconLayers className='text-blue-600 group-hover:text-white transition-colors duration-300' size='large' />
                 </div>
                 <Text className='text-slate-900 font-semibold block text-base mb-1'>
                   {t('快速接入')}
                 </Text>
-                <Text className='text-slate-500 text-sm leading-relaxed block'>
+                <Text className='text-slate-500 text-xs leading-relaxed block'>
                   {t('注册后立即可用')}
                 </Text>
               </div>
-              <div className='p-5 bg-white/60 backdrop-blur-sm border border-white/50 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 group'>
+              <div className='p-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 group'>
                 <div className='w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center mb-3 group-hover:bg-indigo-600 transition-colors duration-300'>
                   <IconActivity className='text-indigo-600 group-hover:text-white transition-colors duration-300' size='large' />
                 </div>
                 <Text className='text-slate-900 font-semibold block text-base mb-1'>
                   {t('清晰用量')}
                 </Text>
-                <Text className='text-slate-500 text-sm leading-relaxed block'>
+                <Text className='text-slate-500 text-xs leading-relaxed block'>
                   {t('用量与成本可视')}
                 </Text>
               </div>
-              <div className='p-5 bg-white/60 backdrop-blur-sm border border-white/50 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 group'>
+              <div className='p-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 group'>
                 <div className='w-10 h-10 rounded-xl bg-cyan-50 flex items-center justify-center mb-3 group-hover:bg-cyan-600 transition-colors duration-300'>
                   <IconKey className='text-cyan-600 group-hover:text-white transition-colors duration-300' size='large' />
                 </div>
                 <Text className='text-slate-900 font-semibold block text-base mb-1'>
                   {t('统一密钥')}
                 </Text>
-                <Text className='text-slate-500 text-sm leading-relaxed block'>
+                <Text className='text-slate-500 text-xs leading-relaxed block'>
                   {t('单密钥多模型')}
                 </Text>
               </div>
-              <div className='p-5 bg-white/60 backdrop-blur-sm border border-white/50 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 group'>
+              <div className='p-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 group'>
                 <div className='w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center mb-3 group-hover:bg-emerald-600 transition-colors duration-300'>
                   <IconBolt className='text-emerald-600 group-hover:text-white transition-colors duration-300' size='large' />
                 </div>
                 <Text className='text-slate-900 font-semibold block text-base mb-1'>
                   {t('易于扩展')}
                 </Text>
-                <Text className='text-slate-500 text-sm leading-relaxed block'>
+                <Text className='text-slate-500 text-xs leading-relaxed block'>
                   {t('随业务增长扩容')}
                 </Text>
               </div>
@@ -850,31 +883,27 @@ const RegisterForm = () => {
           </div>
         </div>
 
-        {/* 右侧：注册表单区 */}
-        <div className='flex-1 flex flex-col justify-center items-center px-4 sm:px-6 lg:px-12 py-12'>
+        {/* 右侧：注册表单区 - 纯白背景 */}
+        <div className='flex-1 flex flex-col justify-center items-center px-6 sm:px-12 py-12 bg-white relative'>
           <div className='w-full max-w-[440px]'>
-            <div className='bg-white rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 p-8 sm:p-10 relative overflow-hidden'>
-              <div className='absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-500'></div>
-              {showEmailRegister ||
-              !hasOAuthRegisterOptions
-                ? renderEmailRegisterForm()
-                : renderOAuthOptions()}
-              {renderWeChatLoginModal()}
+            {showEmailRegister || !hasOAuthRegisterOptions
+              ? renderEmailRegisterForm()
+              : renderOAuthOptions()}
+            {renderWeChatLoginModal()}
 
-              {turnstileEnabled && (
-                <div className='flex justify-center mt-6'>
-                  <Turnstile
-                    sitekey={turnstileSiteKey}
-                    onVerify={(token) => {
-                      setTurnstileToken(token);
-                    }}
-                  />
-                </div>
-              )}
+            {turnstileEnabled && (
+              <div className='flex justify-center mt-6'>
+                <Turnstile
+                  sitekey={turnstileSiteKey}
+                  onVerify={(token) => {
+                    setTurnstileToken(token);
+                  }}
+                />
               </div>
-            </div>
+            )}
           </div>
-        </div>
+      </div>
+      </div>
     </div>
   );
 };

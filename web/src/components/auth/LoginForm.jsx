@@ -515,9 +515,9 @@ const LoginForm = () => {
             </Title>
           </div>
 
-          <Card className='border-0 !rounded-2xl overflow-hidden'>
+          <Card className='border border-gray-200 !rounded-2xl overflow-hidden bg-white'>
             <div className='flex justify-center pt-6 pb-2'>
-              <Title heading={3} className='text-gray-800 dark:text-gray-200'>
+              <Title heading={3} className='text-slate-900'>
                 {t('登 录')}
               </Title>
             </div>
@@ -722,15 +722,8 @@ const LoginForm = () => {
 
   const renderEmailLoginForm = () => {
     return (
-      <div className='flex flex-col items-center'>
-        <div className='w-full max-w-md'>
-          <div className='flex items-center justify-center mb-6 gap-2'>
-            <img src={logo} alt='Logo' className='h-10' />
-            <Title heading={3} className='!text-slate-900'>
-              {systemName}
-            </Title>
-          </div>
-
+      <div className='flex flex-col items-center w-full'>
+        <div className='w-full'>
           <Card className='border border-gray-200 !rounded-2xl overflow-hidden bg-white'>
             <div className='flex justify-center pt-6 pb-2'>
               <Title heading={3} className='text-slate-900'>
@@ -750,14 +743,17 @@ const LoginForm = () => {
                   <span className='ml-3'>{t('使用 Passkey 登录')}</span>
                 </Button>
               )}
-              <Form className='space-y-3'>
+              <Form className='space-y-4' onSubmit={handleSubmit}>
                 <Form.Input
                   field='username'
                   label={t('用户名或邮箱')}
                   placeholder={t('请输入您的用户名或邮箱地址')}
                   name='username'
                   onChange={(value) => handleChange('username', value)}
-                  prefix={<IconMail />}
+                  prefix={<IconMail className='text-gray-400' />}
+                  className='!rounded-xl !h-12 !bg-gray-50 border-gray-200 hover:!bg-white focus:!bg-white focus:!border-blue-500 transition-all duration-200'
+                  noLabel={true}
+                  size='large'
                 />
 
                 <Form.Input
@@ -767,72 +763,73 @@ const LoginForm = () => {
                   name='password'
                   mode='password'
                   onChange={(value) => handleChange('password', value)}
-                  prefix={<IconLock />}
+                  prefix={<IconLock className='text-gray-400' />}
+                  className='!rounded-xl !h-12 !bg-gray-50 border-gray-200 hover:!bg-white focus:!bg-white focus:!border-blue-500 transition-all duration-200'
+                  noLabel={true}
+                  size='large'
                 />
 
-                {(hasUserAgreement || hasPrivacyPolicy) && (
-                  <div className='pt-4'>
-                    <Checkbox
-                      checked={agreedToTerms}
-                      onChange={(e) => setAgreedToTerms(e.target.checked)}
-                    >
-                      <Text size='small' className='text-gray-600'>
-                        {t('我已阅读并同意')}
-                        {hasUserAgreement && (
-                          <>
-                            <a
-                              href='/user-agreement'
-                              target='_blank'
-                              rel='noopener noreferrer'
-                              className='text-blue-600 hover:text-blue-800 mx-1'
-                            >
-                              {t('用户协议')}
-                            </a>
-                          </>
-                        )}
-                        {hasUserAgreement && hasPrivacyPolicy && t('和')}
-                        {hasPrivacyPolicy && (
-                          <>
-                            <a
-                              href='/privacy-policy'
-                              target='_blank'
-                              rel='noopener noreferrer'
-                              className='text-blue-600 hover:text-blue-800 mx-1'
-                            >
-                              {t('隐私政策')}
-                            </a>
-                          </>
-                        )}
-                      </Text>
-                    </Checkbox>
-                  </div>
-                )}
-
-                <div className='space-y-2 pt-2'>
-                  <Button
-                    theme='solid'
-                    className='w-full !rounded-xl'
-                    type='primary'
-                    htmlType='submit'
-                    onClick={handleSubmit}
-                    loading={loginLoading}
-                    disabled={
-                      (hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms
-                    }
+                <div className='flex items-center justify-between pt-2 pb-2'>
+                  <Checkbox
+                    checked={agreedToTerms}
+                    onChange={(e) => setAgreedToTerms(e.target.checked)}
                   >
-                    {t('继续')}
-                  </Button>
+                    <Text className='text-gray-500 hover:text-gray-700 transition-colors'>
+                      {t('记住我')}
+                    </Text>
+                  </Checkbox>
 
                   <Button
                     theme='borderless'
                     type='tertiary'
-                    className='w-full !rounded-xl'
+                    className='!text-blue-600 hover:!text-blue-700 !font-medium !p-0'
                     onClick={handleResetPasswordClick}
-                    loading={resetPasswordLoading}
                   >
                     {t('忘记密码？')}
                   </Button>
                 </div>
+
+                <div className='pt-2'>
+                  <Button
+                    theme='solid'
+                    type='primary'
+                    htmlType='submit'
+                    className='w-full !h-12 !rounded-xl !text-base !font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 border-none shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5'
+                    loading={loginLoading}
+                    disabled={loginLoading}
+                  >
+                    {t('登录')}
+                  </Button>
+                </div>
+
+                {(hasUserAgreement || hasPrivacyPolicy) && (
+                  <div className='flex items-center justify-center pt-4 text-xs text-gray-400'>
+                    <span>
+                      {t('登录即代表您同意')}
+                      {hasUserAgreement && (
+                        <a
+                          href='/user-agreement'
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          className='text-blue-600 hover:text-blue-800 mx-1'
+                        >
+                          {t('用户协议')}
+                        </a>
+                      )}
+                      {hasUserAgreement && hasPrivacyPolicy && t('和')}
+                      {hasPrivacyPolicy && (
+                        <a
+                          href='/privacy-policy'
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          className='text-blue-600 hover:text-blue-800 mx-1'
+                        >
+                          {t('隐私政策')}
+                        </a>
+                      )}
+                    </span>
+                  </div>
+                )}
               </Form>
 
               {hasOAuthLoginOptions && (
@@ -868,7 +865,7 @@ const LoginForm = () => {
                   </Text>
                 </div>
               )}
-            </div>
+          </div>
           </Card>
         </div>
       </div>
@@ -1036,23 +1033,28 @@ const LoginForm = () => {
 
         {/* 右侧：登录表单区 - 纯白背景 */}
         <div className='flex-1 flex flex-col justify-center items-center px-6 sm:px-12 py-12 bg-white relative'>
-          <div className='w-full max-w-[400px] space-y-8'>
-            {showEmailLogin || !hasOAuthLoginOptions
-              ? renderEmailLoginForm()
-              : renderOAuthOptions()}
-            {renderWeChatLoginModal()}
-            {render2FAModal()}
+          <div className='w-full max-w-[440px]'>
+            <div className='text-center mb-10'>
+              <h2 className='text-3xl font-bold text-slate-900 mb-2'>{t('欢迎回来')}</h2>
+              <p className='text-slate-500 text-base'>{t('请输入您的账户信息以登录')}</p>
+            </div>
 
-            {turnstileEnabled && (
-              <div className='flex justify-center mt-6'>
+            {status.turnstile_check && (
+              <div className='mb-6'>
                 <Turnstile
-                  sitekey={turnstileSiteKey}
+                  sitekey={status.turnstile_site_key}
                   onVerify={(token) => {
                     setTurnstileToken(token);
                   }}
                 />
               </div>
             )}
+
+            {showEmailLogin || !hasOAuthLoginOptions
+              ? renderEmailLoginForm()
+              : renderOAuthOptions()}
+            {renderWeChatLoginModal()}
+            {render2FAModal()}
           </div>
         </div>
       </div>
