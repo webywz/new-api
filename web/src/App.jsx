@@ -31,7 +31,6 @@ import { StatusContext } from './context/Status';
 
 import PasswordResetForm from './components/auth/PasswordResetForm';
 import PasswordResetConfirm from './components/auth/PasswordResetConfirm';
-import Channel from './pages/Channel';
 import Token from './pages/Token';
 import TopUp from './pages/TopUp';
 import Log from './pages/Log';
@@ -105,14 +104,6 @@ function App() {
           element={
             <AdminRoute>
               <ModelPage />
-            </AdminRoute>
-          }
-        />
-        <Route
-          path='/console/channel'
-          element={
-            <AdminRoute>
-              <Channel />
             </AdminRoute>
           }
         />
