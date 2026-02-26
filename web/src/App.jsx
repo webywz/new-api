@@ -33,18 +33,11 @@ import PasswordResetForm from './components/auth/PasswordResetForm';
 import PasswordResetConfirm from './components/auth/PasswordResetConfirm';
 import Channel from './pages/Channel';
 import Token from './pages/Token';
-import Redemption from './pages/Redemption';
 import TopUp from './pages/TopUp';
 import Log from './pages/Log';
-import Chat from './pages/Chat';
-import Chat2Link from './pages/Chat2Link';
-import Midjourney from './pages/Midjourney';
 import Pricing from './pages/Pricing';
 import Task from './pages/Task';
 import ModelPage from './pages/Model';
-import ModelDeploymentPage from './pages/ModelDeployment';
-import Playground from './pages/Playground';
-import Subscription from './pages/Subscription';
 import OAuth2Callback from './components/auth/OAuth2Callback';
 import PersonalSetting from './components/settings/PersonalSetting';
 import Setup from './pages/Setup';
@@ -116,22 +109,6 @@ function App() {
           }
         />
         <Route
-          path='/console/deployment'
-          element={
-            <AdminRoute>
-              <ModelDeploymentPage />
-            </AdminRoute>
-          }
-        />
-        <Route
-          path='/console/subscription'
-          element={
-            <AdminRoute>
-              <Subscription />
-            </AdminRoute>
-          }
-        />
-        <Route
           path='/console/channel'
           element={
             <AdminRoute>
@@ -145,22 +122,6 @@ function App() {
             <PrivateRoute>
               <Token />
             </PrivateRoute>
-          }
-        />
-        <Route
-          path='/console/playground'
-          element={
-            <PrivateRoute>
-              <Playground />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path='/console/redemption'
-          element={
-            <AdminRoute>
-              <Redemption />
-            </AdminRoute>
           }
         />
         <Route
@@ -296,16 +257,6 @@ function App() {
           }
         />
         <Route
-          path='/console/midjourney'
-          element={
-            <PrivateRoute>
-              <Suspense fallback={<Loading></Loading>} key={location.pathname}>
-                <Midjourney />
-              </Suspense>
-            </PrivateRoute>
-          }
-        />
-        <Route
           path='/console/task'
           element={
             <PrivateRoute>
@@ -356,25 +307,6 @@ function App() {
             <Suspense fallback={<Loading></Loading>} key={location.pathname}>
               <PrivacyPolicy />
             </Suspense>
-          }
-        />
-        <Route
-          path='/console/chat/:id?'
-          element={
-            <Suspense fallback={<Loading></Loading>} key={location.pathname}>
-              <Chat />
-            </Suspense>
-          }
-        />
-        {/* 方便使用chat2link直接跳转聊天... */}
-        <Route
-          path='/chat2link'
-          element={
-            <PrivateRoute>
-              <Suspense fallback={<Loading></Loading>} key={location.pathname}>
-                <Chat2Link />
-              </Suspense>
-            </PrivateRoute>
           }
         />
         <Route path='*' element={<NotFound />} />

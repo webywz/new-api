@@ -63,17 +63,11 @@ const NotificationSettings = ({
   const [sidebarLoading, setSidebarLoading] = useState(false);
   const [activeTabKey, setActiveTabKey] = useState('notification');
   const [sidebarModulesUser, setSidebarModulesUser] = useState({
-    chat: {
-      enabled: true,
-      playground: true,
-      chat: true,
-    },
     console: {
       enabled: true,
       detail: true,
       token: true,
       log: true,
-      midjourney: true,
       task: true,
     },
     personal: {
@@ -85,9 +79,6 @@ const NotificationSettings = ({
       enabled: true,
       channel: true,
       models: true,
-      deployment: true,
-      subscription: true,
-      redemption: true,
       user: true,
       setting: true,
     },
@@ -155,13 +146,11 @@ const NotificationSettings = ({
 
   const resetSidebarModules = () => {
     const defaultConfig = {
-      chat: { enabled: true, playground: true, chat: true },
       console: {
         enabled: true,
         detail: true,
         token: true,
         log: true,
-        midjourney: true,
         task: true,
       },
       personal: { enabled: true, topup: true, personal: true },
@@ -169,9 +158,6 @@ const NotificationSettings = ({
         enabled: true,
         channel: true,
         models: true,
-        deployment: true,
-        subscription: true,
-        redemption: true,
         user: true,
         setting: true,
       },
@@ -244,19 +230,6 @@ const NotificationSettings = ({
   // 区域配置数据（根据权限过滤）
   const sectionConfigs = [
     {
-      key: 'chat',
-      title: t('聊天区域'),
-      description: t('操练场和聊天功能'),
-      modules: [
-        {
-          key: 'playground',
-          title: t('操练场'),
-          description: t('AI模型测试环境'),
-        },
-        { key: 'chat', title: t('聊天'), description: t('聊天会话管理') },
-      ],
-    },
-    {
       key: 'console',
       title: t('控制台区域'),
       description: t('数据管理和日志查看'),
@@ -264,11 +237,6 @@ const NotificationSettings = ({
         { key: 'detail', title: t('数据看板'), description: t('系统数据统计') },
         { key: 'token', title: t('令牌管理'), description: t('API令牌管理') },
         { key: 'log', title: t('使用日志'), description: t('API使用记录') },
-        {
-          key: 'midjourney',
-          title: t('绘图日志'),
-          description: t('绘图任务记录'),
-        },
         { key: 'task', title: t('任务日志'), description: t('系统任务记录') },
       ],
     },
@@ -293,21 +261,6 @@ const NotificationSettings = ({
       modules: [
         { key: 'channel', title: t('渠道管理'), description: t('API渠道配置') },
         { key: 'models', title: t('模型管理'), description: t('AI模型配置') },
-        {
-          key: 'deployment',
-          title: t('模型部署'),
-          description: t('模型部署管理'),
-        },
-        {
-          key: 'subscription',
-          title: t('订阅管理'),
-          description: t('订阅套餐管理'),
-        },
-        {
-          key: 'redemption',
-          title: t('兑换码管理'),
-          description: t('兑换码生成管理'),
-        },
         { key: 'user', title: t('用户管理'), description: t('用户账户管理') },
         {
           key: 'setting',

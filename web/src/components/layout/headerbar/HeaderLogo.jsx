@@ -44,6 +44,7 @@ const HeaderLogo = ({
         <img
           src={logo}
           alt='logo'
+          style={{ borderRadius: 0 }}
           className={`absolute inset-0 w-full h-full transition-all duration-200 group-hover:scale-110 rounded-full ${!isLoading && logoLoaded ? 'opacity-100' : 'opacity-0'}`}
         />
       </div>
