@@ -236,7 +236,7 @@ const AccountManagement = ({
               </Card>
 
               {/* 微信绑定 */}
-              <Card className='!rounded-xl'>
+              {/* <Card className='!rounded-xl'>
                 <div className='flex items-center justify-between gap-3'>
                   <div className='flex items-center flex-1 min-w-0'>
                     <div className='w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center mr-3 flex-shrink-0'>
@@ -274,10 +274,10 @@ const AccountManagement = ({
                     </Button>
                   </div>
                 </div>
-              </Card>
+              </Card> */}
 
               {/* GitHub绑定 */}
-              <Card className='!rounded-xl'>
+              {/* <Card className='!rounded-xl'>
                 <div className='flex items-center justify-between gap-3'>
                   <div className='flex items-center flex-1 min-w-0'>
                     <div className='w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center mr-3 flex-shrink-0'>
@@ -315,10 +315,10 @@ const AccountManagement = ({
                     </Button>
                   </div>
                 </div>
-              </Card>
+              </Card> */}
 
               {/* Discord绑定 */}
-              <Card className='!rounded-xl'>
+              {/* <Card className='!rounded-xl'>
                 <div className='flex items-center justify-between gap-3'>
                   <div className='flex items-center flex-1 min-w-0'>
                     <div className='w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center mr-3 flex-shrink-0'>
@@ -356,10 +356,10 @@ const AccountManagement = ({
                     </Button>
                   </div>
                 </div>
-              </Card>
+              </Card> */}
 
               {/* OIDC绑定 */}
-              <Card className='!rounded-xl'>
+              {/* <Card className='!rounded-xl'>
                 <div className='flex items-center justify-between gap-3'>
                   <div className='flex items-center flex-1 min-w-0'>
                     <div className='w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center mr-3 flex-shrink-0'>
@@ -399,10 +399,10 @@ const AccountManagement = ({
                     </Button>
                   </div>
                 </div>
-              </Card>
+              </Card> */}
 
               {/* Telegram绑定 */}
-              <Card className='!rounded-xl'>
+              {/* <Card className='!rounded-xl'>
                 <div className='flex items-center justify-between gap-3'>
                   <div className='flex items-center flex-1 min-w-0'>
                     <div className='w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center mr-3 flex-shrink-0'>
@@ -474,10 +474,10 @@ const AccountManagement = ({
                     />
                   </div>
                 </div>
-              </Modal>
+              </Modal> */}
 
               {/* LinuxDO绑定 */}
-              <Card className='!rounded-xl'>
+              {/* <Card className='!rounded-xl'>
                 <div className='flex items-center justify-between gap-3'>
                   <div className='flex items-center flex-1 min-w-0'>
                     <div className='w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center mr-3 flex-shrink-0'>
@@ -515,7 +515,7 @@ const AccountManagement = ({
                     </Button>
                   </div>
                 </div>
-              </Card>
+              </Card> */}
 
               {/* 自定义 OAuth 提供商绑定 */}
               {status.custom_oauth_providers &&
@@ -592,7 +592,7 @@ const AccountManagement = ({
             <div className='space-y-6'>
               <Space vertical className='w-full'>
                 {/* 系统访问令牌 */}
-                <Card className='!rounded-xl w-full'>
+                {/* <Card className='!rounded-xl w-full'>
                   <div className='flex flex-col sm:flex-row items-start sm:justify-between gap-4'>
                     <div className='flex items-start w-full sm:w-auto'>
                       <div className='w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mr-4 flex-shrink-0'>
@@ -628,7 +628,7 @@ const AccountManagement = ({
                       {systemToken ? t('重新生成') : t('生成令牌')}
                     </Button>
                   </div>
-                </Card>
+                </Card> */}
 
                 {/* 密码管理 */}
                 <Card className='!rounded-xl w-full'>
@@ -659,7 +659,7 @@ const AccountManagement = ({
                 </Card>
 
                 {/* Passkey 设置 */}
-                <Card className='!rounded-xl w-full'>
+                {/* <Card className='!rounded-xl w-full'>
                   <div className='flex flex-col sm:flex-row items-start sm:justify-between gap-4'>
                     <div className='flex items-start w-full sm:w-auto'>
                       <div className='w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mr-4 flex-shrink-0'>
@@ -678,16 +678,6 @@ const AccountManagement = ({
                           <div>
                             {t('最后使用时间')}：{lastUsedLabel}
                           </div>
-                          {/*{passkeyEnabled && (*/}
-                          {/*  <div>*/}
-                          {/*    {t('备份支持')}：*/}
-                          {/*    {passkeyStatus?.backup_eligible*/}
-                          {/*      ? t('支持备份')*/}
-                          {/*      : t('不支持')}*/}
-                          {/*    ，{t('备份状态')}：*/}
-                          {/*    {passkeyStatus?.backup_state ? t('已备份') : t('未备份')}*/}
-                          {/*  </div>*/}
-                          {/*)}*/}
                           {!passkeySupported && (
                             <div className='text-amber-600'>
                               {t('当前设备不支持 Passkey')}
@@ -727,10 +717,10 @@ const AccountManagement = ({
                       {passkeyEnabled ? t('解绑 Passkey') : t('注册 Passkey')}
                     </Button>
                   </div>
-                </Card>
+                </Card> */}
 
                 {/* 两步验证设置 */}
-                <TwoFASetting t={t} />
+                {/* <TwoFASetting t={t} /> */}
 
                 {/* 危险区域 */}
                 <Card className='!rounded-xl w-full'>

@@ -378,9 +378,9 @@ const NotificationSettings = ({
                   rules={[{ required: true, message: t('请选择通知方式') }]}
                 >
                   <Radio value='email'>{t('邮件通知')}</Radio>
-                  <Radio value='webhook'>{t('Webhook通知')}</Radio>
+                  {/* <Radio value='webhook'>{t('Webhook通知')}</Radio>
                   <Radio value='bark'>{t('Bark通知')}</Radio>
-                  <Radio value='gotify'>{t('Gotify通知')}</Radio>
+                  <Radio value='gotify'>{t('Gotify通知')}</Radio> */}
                 </Form.RadioGroup>
 
                 <Form.AutoComplete
