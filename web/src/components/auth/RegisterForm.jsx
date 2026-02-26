@@ -50,6 +50,10 @@ import {
   IconUser,
   IconLock,
   IconKey,
+  IconLayers,
+  IconCreditCard,
+  IconBolt,
+  IconActivity,
 } from '@douyinfe/semi-icons';
 import {
   onGitHubOAuthClicked,
@@ -428,7 +432,7 @@ const RegisterForm = () => {
                 {status.github_oauth && (
                   <Button
                     theme='outline'
-                    className='w-full h-12 flex items-center justify-center !rounded-full border border-gray-200 hover:bg-gray-50 transition-colors'
+                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 hover:bg-slate-50 transition-colors'
                     type='tertiary'
                     icon={<IconGithubLogo size='large' />}
                     onClick={handleGitHubClick}
@@ -442,7 +446,7 @@ const RegisterForm = () => {
                 {status.discord_oauth && (
                   <Button
                     theme='outline'
-                    className='w-full h-12 flex items-center justify-center !rounded-full border border-gray-200 hover:bg-gray-50 transition-colors'
+                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 hover:bg-slate-50 transition-colors'
                     type='tertiary'
                     icon={
                       <SiDiscord
@@ -463,7 +467,7 @@ const RegisterForm = () => {
                 {status.oidc_enabled && (
                   <Button
                     theme='outline'
-                    className='w-full h-12 flex items-center justify-center !rounded-full border border-gray-200 hover:bg-gray-50 transition-colors'
+                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 hover:bg-slate-50 transition-colors'
                     type='tertiary'
                     icon={<OIDCIcon style={{ color: '#1877F2' }} />}
                     onClick={handleOIDCClick}
@@ -476,7 +480,7 @@ const RegisterForm = () => {
                 {status.linuxdo_oauth && (
                   <Button
                     theme='outline'
-                    className='w-full h-12 flex items-center justify-center !rounded-full border border-gray-200 hover:bg-gray-50 transition-colors'
+                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 hover:bg-slate-50 transition-colors'
                     type='tertiary'
                     icon={
                       <LinuxDoIcon
@@ -499,7 +503,7 @@ const RegisterForm = () => {
                     <Button
                       key={provider.slug}
                       theme='outline'
-                      className='w-full h-12 flex items-center justify-center !rounded-full border border-gray-200 hover:bg-gray-50 transition-colors'
+                      className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 hover:bg-slate-50 transition-colors'
                       type='tertiary'
                       icon={getOAuthProviderIcon(provider.icon || '', 20)}
                       onClick={() => handleCustomOAuthClick(provider)}
@@ -527,7 +531,7 @@ const RegisterForm = () => {
                 <Button
                   theme='solid'
                   type='primary'
-                  className='w-full h-12 flex items-center justify-center bg-black text-white !rounded-full hover:bg-gray-800 transition-colors'
+                  className='w-full h-12 flex items-center justify-center !rounded-xl bg-blue-600 hover:bg-blue-700'
                   icon={<IconMail size='large' />}
                   onClick={handleEmailRegisterClick}
                   loading={emailRegisterLoading}
@@ -559,15 +563,15 @@ const RegisterForm = () => {
       <div className='flex flex-col items-center'>
         <div className='w-full max-w-md'>
           <div className='flex items-center justify-center mb-6 gap-2'>
-            <img src={logo} alt='Logo' className='h-10 rounded-full' style={{borderRadius: '0'}} />
-            <Title heading={3} className='!text-gray-800'>
+            <img src={logo} alt='Logo' className='h-10' />
+            <Title heading={3} className='!text-slate-900'>
               {systemName}
             </Title>
           </div>
 
-          <Card className='border-0 !rounded-2xl overflow-hidden'>
+          <Card className='border border-gray-200 !rounded-2xl overflow-hidden bg-white'>
             <div className='flex justify-center pt-6 pb-2'>
-              <Title heading={3} className='text-gray-800 dark:text-gray-200'>
+              <Title heading={3} className='text-slate-900'>
                 {t('注 册')}
               </Title>
             </div>
@@ -678,7 +682,7 @@ const RegisterForm = () => {
                 <div className='space-y-2 pt-2'>
                   <Button
                     theme='solid'
-                    className='w-full !rounded-full'
+                    className='w-full !rounded-xl'
                     type='primary'
                     htmlType='submit'
                     onClick={handleSubmit}
@@ -702,7 +706,7 @@ const RegisterForm = () => {
                     <Button
                       theme='outline'
                       type='tertiary'
-                      className='w-full !rounded-full'
+                      className='w-full !rounded-xl'
                       onClick={handleOtherRegisterOptionsClick}
                       loading={otherRegisterOptionsLoading}
                     >
@@ -770,34 +774,107 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className='relative overflow-hidden bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
-      {/* 背景模糊晕染球 */}
-      <div
-        className='blur-ball blur-ball-indigo'
-        style={{ top: '-80px', right: '-80px', transform: 'none' }}
-      />
-      <div
-        className='blur-ball blur-ball-teal'
-        style={{ top: '50%', left: '-120px' }}
-      />
-      <div className='w-full max-w-sm mt-[60px]'>
-        {showEmailRegister ||
-        !hasOAuthRegisterOptions
-          ? renderEmailRegisterForm()
-          : renderOAuthOptions()}
-        {renderWeChatLoginModal()}
+    <div className='min-h-screen w-full flex bg-slate-50 relative overflow-hidden'>
+      {/* 背景装饰 */}
+      <div className='absolute top-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-blue-100/50 blur-[120px] pointer-events-none' />
+      <div className='absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-100/50 blur-[120px] pointer-events-none' />
 
-        {turnstileEnabled && (
-          <div className='flex justify-center mt-6'>
-            <Turnstile
-              sitekey={turnstileSiteKey}
-              onVerify={(token) => {
-                setTurnstileToken(token);
-              }}
-            />
+      <div className='flex flex-1 flex-col lg:flex-row max-w-[1920px] mx-auto z-10'>
+        {/* 左侧：价值主张区 */}
+        <div className='hidden lg:flex flex-1 flex-col justify-center px-12 xl:px-24 relative'>
+          <div className='max-w-xl'>
+            <div className='inline-flex items-center px-3 py-1 rounded-full bg-white border border-blue-100 shadow-sm mb-6 w-fit'>
+              <span className='w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse'></span>
+              <span className='text-xs font-medium text-blue-700 tracking-wide'>
+                {t('立即加入数千家企业')}
+              </span>
+            </div>
+            <h1 className='text-4xl xl:text-5xl font-bold text-slate-900 leading-tight mb-6'>
+              {t('开启您的')} <br />
+              <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600'>
+                {t('AI 创新之旅')}
+              </span>
+            </h1>
+            <p className='text-lg text-slate-600 mb-10 leading-relaxed'>
+              {t(
+                '注册即享统一的大模型接入网关，完善的额度管理与分发系统，让 AI 能力触手可及。',
+              )}
+            </p>
+
+            <div className='grid grid-cols-2 gap-5'>
+              <div className='p-5 bg-white/60 backdrop-blur-sm border border-white/50 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 group'>
+                <div className='w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center mb-3 group-hover:bg-blue-600 transition-colors duration-300'>
+                  <IconLayers className='text-blue-600 group-hover:text-white transition-colors duration-300' size='large' />
+                </div>
+                <Text className='text-slate-900 font-semibold block text-base mb-1'>
+                  {t('快速接入')}
+                </Text>
+                <Text className='text-slate-500 text-sm leading-relaxed block'>
+                  {t('注册后立即可用')}
+                </Text>
+              </div>
+              <div className='p-5 bg-white/60 backdrop-blur-sm border border-white/50 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 group'>
+                <div className='w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center mb-3 group-hover:bg-indigo-600 transition-colors duration-300'>
+                  <IconActivity className='text-indigo-600 group-hover:text-white transition-colors duration-300' size='large' />
+                </div>
+                <Text className='text-slate-900 font-semibold block text-base mb-1'>
+                  {t('清晰用量')}
+                </Text>
+                <Text className='text-slate-500 text-sm leading-relaxed block'>
+                  {t('用量与成本可视')}
+                </Text>
+              </div>
+              <div className='p-5 bg-white/60 backdrop-blur-sm border border-white/50 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 group'>
+                <div className='w-10 h-10 rounded-xl bg-cyan-50 flex items-center justify-center mb-3 group-hover:bg-cyan-600 transition-colors duration-300'>
+                  <IconKey className='text-cyan-600 group-hover:text-white transition-colors duration-300' size='large' />
+                </div>
+                <Text className='text-slate-900 font-semibold block text-base mb-1'>
+                  {t('统一密钥')}
+                </Text>
+                <Text className='text-slate-500 text-sm leading-relaxed block'>
+                  {t('单密钥多模型')}
+                </Text>
+              </div>
+              <div className='p-5 bg-white/60 backdrop-blur-sm border border-white/50 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 group'>
+                <div className='w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center mb-3 group-hover:bg-emerald-600 transition-colors duration-300'>
+                  <IconBolt className='text-emerald-600 group-hover:text-white transition-colors duration-300' size='large' />
+                </div>
+                <Text className='text-slate-900 font-semibold block text-base mb-1'>
+                  {t('易于扩展')}
+                </Text>
+                <Text className='text-slate-500 text-sm leading-relaxed block'>
+                  {t('随业务增长扩容')}
+                </Text>
+              </div>
+            </div>
           </div>
-        )}
-      </div>
+        </div>
+
+        {/* 右侧：注册表单区 */}
+        <div className='flex-1 flex flex-col justify-center items-center px-4 sm:px-6 lg:px-12 py-12'>
+          <div className='w-full max-w-[440px]'>
+            <div className='bg-white rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 p-8 sm:p-10 relative overflow-hidden'>
+              <div className='absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-500'></div>
+              {showEmailRegister ||
+              !hasOAuthRegisterOptions
+                ? renderEmailRegisterForm()
+                : renderOAuthOptions()}
+              {renderWeChatLoginModal()}
+
+              {turnstileEnabled && (
+                <div className='flex justify-center mt-6'>
+                  <Turnstile
+                    sitekey={turnstileSiteKey}
+                    onVerify={(token) => {
+                      setTurnstileToken(token);
+                    }}
+                  />
+                </div>
+              )}
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
   );
 };
