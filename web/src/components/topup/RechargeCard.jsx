@@ -45,7 +45,6 @@ import {
   Receipt,
   Sparkles,
 } from 'lucide-react';
-import { IconGift } from '@douyinfe/semi-icons';
 import { useMinimumLoadingTime } from '../../hooks/common/useMinimumLoadingTime';
 import { getCurrencyConfig } from '../../helpers/render';
 import SubscriptionPlansCard from './SubscriptionPlansCard';
@@ -76,12 +75,6 @@ const RechargeCard = ({
   preTopUp,
   paymentLoading,
   payWay,
-  redemptionCode,
-  setRedemptionCode,
-  topUp,
-  isSubmitting,
-  topUpLink,
-  openTopUpLink,
   userState,
   renderQuota,
   statusLoading,
@@ -96,12 +89,18 @@ const RechargeCard = ({
   reloadSubscriptionSelf,
 }) => {
   const onlineFormApiRef = useRef(null);
-  const redeemFormApiRef = useRef(null);
   const initialTabSetRef = useRef(false);
   const showAmountSkeleton = useMinimumLoadingTime(amountLoading);
   const [activeTab, setActiveTab] = useState('topup');
+  const [selectedPayment, setSelectedPayment] = useState('');
   const shouldShowSubscription =
     !subscriptionLoading && subscriptionPlans.length > 0;
+
+  useEffect(() => {
+    if (payMethods && payMethods.length > 0 && !selectedPayment) {
+      setSelectedPayment(payMethods[0].type);
+    }
+  }, [payMethods]);
 
   useEffect(() => {
     if (initialTabSetRef.current) return;
@@ -303,26 +302,29 @@ const RechargeCard = ({
                             const buttonEl = (
                               <Button
                                 key={payMethod.type}
-                                theme='outline'
-                                type='tertiary'
-                                onClick={() => preTopUp(payMethod.type)}
-                                disabled={disabled}
-                                loading={
-                                  paymentLoading && payWay === payMethod.type
+                                theme={selectedPayment === payMethod.type ? 'solid' : 'light'}
+                                type={selectedPayment === payMethod.type ? 'primary' : 'tertiary'}
+                                style={
+                                  selectedPayment !== payMethod.type
+                                    ? { backgroundColor: 'var(--semi-color-fill-0)' }
+                                    : {}
                                 }
+                                onClick={() => setSelectedPayment(payMethod.type)}
+                                disabled={disabled}
                                 icon={
                                   payMethod.type === 'alipay' ? (
-                                    <SiAlipay size={18} color='#1677FF' />
+                                    <SiAlipay size={18} color={selectedPayment === payMethod.type ? '#fff' : '#1677FF'} />
                                   ) : payMethod.type === 'wxpay' ? (
-                                    <SiWechat size={18} color='#07C160' />
+                                    <SiWechat size={18} color={selectedPayment === payMethod.type ? '#fff' : '#07C160'} />
                                   ) : payMethod.type === 'stripe' ? (
-                                    <SiStripe size={18} color='#635BFF' />
+                                    <SiStripe size={18} color={selectedPayment === payMethod.type ? '#fff' : '#635BFF'} />
                                   ) : (
                                     <CreditCard
                                       size={18}
                                       color={
-                                        payMethod.color ||
-                                        'var(--semi-color-text-2)'
+                                        selectedPayment === payMethod.type
+                                          ? '#fff'
+                                          : payMethod.color || 'var(--semi-color-text-2)'
                                       }
                                     />
                                   )
@@ -509,71 +511,29 @@ const RechargeCard = ({
                   </div>
                 </Form.Slot>
               )}
+
+              <div className='mt-6'>
+                <Button
+                  theme='solid'
+                  type='primary'
+                  className='w-full !rounded-xl !h-12 !text-base !font-semibold'
+                  onClick={() => preTopUp(selectedPayment)}
+                  disabled={!selectedPayment || paymentLoading}
+                  loading={paymentLoading}
+                >
+                  {t('立即充值')}
+                </Button>
+              </div>
             </div>
           </Form>
         ) : (
-          <Banner
-            type='info'
-            description={t(
-              '管理员未开启在线充值功能，请联系管理员开启或使用兑换码充值。',
-            )}
-            className='!rounded-xl'
-            closeIcon={null}
-          />
+          <div className='text-center text-gray-500 py-12'>
+            <div className='mb-4 flex justify-center'>
+              <Wallet size={48} className='text-gray-300' />
+            </div>
+            <p>{t('暂无可用充值方式')}</p>
+          </div>
         )}
-      </Card>
-
-      {/* 兑换码充值 */}
-      <Card
-        className='!rounded-xl w-full'
-        title={
-          <Text type='tertiary' strong>
-            {t('兑换码充值')}
-          </Text>
-        }
-      >
-        <Form
-          getFormApi={(api) => (redeemFormApiRef.current = api)}
-          initValues={{ redemptionCode: redemptionCode }}
-        >
-          <Form.Input
-            field='redemptionCode'
-            noLabel={true}
-            placeholder={t('请输入兑换码')}
-            value={redemptionCode}
-            onChange={(value) => setRedemptionCode(value)}
-            prefix={<IconGift />}
-            suffix={
-              <div className='flex items-center gap-2'>
-                <Button
-                  type='primary'
-                  theme='solid'
-                  onClick={topUp}
-                  loading={isSubmitting}
-                >
-                  {t('兑换额度')}
-                </Button>
-              </div>
-            }
-            showClear
-            style={{ width: '100%' }}
-            extraText={
-              topUpLink && (
-                <Text type='tertiary'>
-                  {t('在找兑换码？')}
-                  <Text
-                    type='secondary'
-                    underline
-                    className='cursor-pointer'
-                    onClick={openTopUpLink}
-                  >
-                    {t('购买兑换码')}
-                  </Text>
-                </Text>
-              )
-            }
-          />
-        </Form>
       </Card>
     </Space>
   );

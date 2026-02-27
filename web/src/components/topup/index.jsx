@@ -42,14 +42,10 @@ const TopUp = () => {
   const [userState, userDispatch] = useContext(UserContext);
   const [statusState] = useContext(StatusContext);
 
-  const [redemptionCode, setRedemptionCode] = useState('');
   const [amount, setAmount] = useState(0.0);
   const [minTopUp, setMinTopUp] = useState(statusState?.status?.min_topup || 1);
   const [topUpCount, setTopUpCount] = useState(
     statusState?.status?.min_topup || 1,
-  );
-  const [topUpLink, setTopUpLink] = useState(
-    statusState?.status?.top_up_link || '',
   );
   const [enableOnlineTopUp, setEnableOnlineTopUp] = useState(
     statusState?.status?.enable_online_topup || false,
@@ -67,7 +63,6 @@ const TopUp = () => {
   const [creemOpen, setCreemOpen] = useState(false);
   const [selectedCreemProduct, setSelectedCreemProduct] = useState(null);
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [open, setOpen] = useState(false);
   const [payWay, setPayWay] = useState('');
   const [amountLoading, setAmountLoading] = useState(false);
@@ -95,50 +90,6 @@ const TopUp = () => {
     amount_options: [],
     discount: {},
   });
-
-  const topUp = async () => {
-    if (redemptionCode === '') {
-      showInfo(t('请输入兑换码！'));
-      return;
-    }
-    setIsSubmitting(true);
-    try {
-      const res = await API.post('/api/user/topup', {
-        key: redemptionCode,
-      });
-      const { success, message, data } = res.data;
-      if (success) {
-        showSuccess(t('兑换成功！'));
-        Modal.success({
-          title: t('兑换成功！'),
-          content: t('成功兑换额度：') + renderQuota(data),
-          centered: true,
-        });
-        if (userState.user) {
-          const updatedUser = {
-            ...userState.user,
-            quota: userState.user.quota + data,
-          };
-          userDispatch({ type: 'login', payload: updatedUser });
-        }
-        setRedemptionCode('');
-      } else {
-        showError(message);
-      }
-    } catch (err) {
-      showError(t('请求失败'));
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const openTopUpLink = () => {
-    if (!topUpLink) {
-      showError(t('超级管理员未设置充值链接！'));
-      return;
-    }
-    window.open(topUpLink, '_blank');
-  };
 
   const preTopUp = async (payment) => {
     if (payment === 'stripe') {
@@ -502,7 +453,6 @@ const TopUp = () => {
       // const minTopUpValue = statusState.status.min_topup || 1;
       // setMinTopUp(minTopUpValue);
       // setTopUpCount(minTopUpValue);
-      setTopUpLink(statusState.status.top_up_link || '');
       setPriceRatio(statusState.status.price || 1);
 
       setStatusLoading(false);
@@ -688,12 +638,6 @@ const TopUp = () => {
             preTopUp={preTopUp}
             paymentLoading={paymentLoading}
             payWay={payWay}
-            redemptionCode={redemptionCode}
-            setRedemptionCode={setRedemptionCode}
-            topUp={topUp}
-            isSubmitting={isSubmitting}
-            topUpLink={topUpLink}
-            openTopUpLink={openTopUpLink}
             userState={userState}
             renderQuota={renderQuota}
             statusLoading={statusLoading}
