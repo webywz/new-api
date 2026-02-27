@@ -139,12 +139,12 @@ const LoginForm = () => {
     (status.custom_oauth_providers || []).length > 0;
   const hasOAuthLoginOptions = Boolean(
     status.github_oauth ||
-      status.discord_oauth ||
-      status.oidc_enabled ||
-      status.wechat_login ||
-      status.linuxdo_oauth ||
-      status.telegram_oauth ||
-      hasCustomOAuthProviders,
+    status.discord_oauth ||
+    status.oidc_enabled ||
+    status.wechat_login ||
+    status.linuxdo_oauth ||
+    status.telegram_oauth ||
+    hasCustomOAuthProviders,
   );
 
   useEffect(() => {
@@ -506,27 +506,15 @@ const LoginForm = () => {
 
   const renderOAuthOptions = () => {
     return (
-      <div className='flex flex-col items-center'>
-        <div className='w-full max-w-md'>
-          <div className='flex items-center justify-center mb-6 gap-2'>
-            <img src={logo} alt='Logo' className='h-10 rounded-full' style={{borderRadius: '0'}} />
-            <Title heading={3} className='!text-gray-800'>
-              {systemName}
-            </Title>
-          </div>
-
-          <Card className='border border-gray-200 !rounded-2xl overflow-hidden bg-white'>
-            <div className='flex justify-center pt-6 pb-2'>
-              <Title heading={3} className='text-slate-900'>
-                {t('登 录')}
-              </Title>
-            </div>
-            <div className='px-2 py-8'>
-              <div className='space-y-3'>
+      <div className='flex flex-col items-center login-oauth-wrapper'>
+        <div className='w-full max-w-md login-oauth-container'>
+          <div className='bg-transparent oauth-form-content'>
+            <div className='py-1 login-oauth-action-area'>
+              <div className='space-y-3 login-oauth-btn-group'>
                 {status.wechat_login && (
                   <Button
                     theme='outline'
-                    className='w-full h-12 flex items-center justify-center !rounded-full border border-gray-200 hover:bg-gray-50 transition-colors'
+                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 hover:bg-gray-50 hover:border-gray-300 active:scale-[0.98] transition-all duration-200 login-oauth-btn'
                     type='tertiary'
                     icon={
                       <Icon svg={<WeChatIcon />} style={{ color: '#07C160' }} />
@@ -541,7 +529,7 @@ const LoginForm = () => {
                 {status.github_oauth && (
                   <Button
                     theme='outline'
-                    className='w-full h-12 flex items-center justify-center !rounded-full border border-gray-200 hover:bg-gray-50 transition-colors'
+                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 hover:bg-gray-50 hover:border-gray-300 active:scale-[0.98] transition-all duration-200 login-oauth-btn'
                     type='tertiary'
                     icon={<IconGithubLogo size='large' />}
                     onClick={handleGitHubClick}
@@ -555,7 +543,7 @@ const LoginForm = () => {
                 {status.discord_oauth && (
                   <Button
                     theme='outline'
-                    className='w-full h-12 flex items-center justify-center !rounded-full border border-gray-200 hover:bg-gray-50 transition-colors'
+                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 hover:bg-gray-50 hover:border-gray-300 active:scale-[0.98] transition-all duration-200 login-oauth-btn'
                     type='tertiary'
                     icon={
                       <SiDiscord
@@ -576,7 +564,7 @@ const LoginForm = () => {
                 {status.oidc_enabled && (
                   <Button
                     theme='outline'
-                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 hover:bg-slate-50 transition-colors'
+                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 hover:bg-slate-50 hover:border-gray-300 active:scale-[0.98] transition-all duration-200 login-oauth-btn'
                     type='tertiary'
                     icon={<OIDCIcon style={{ color: '#1877F2' }} />}
                     onClick={handleOIDCClick}
@@ -589,7 +577,7 @@ const LoginForm = () => {
                 {status.linuxdo_oauth && (
                   <Button
                     theme='outline'
-                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 hover:bg-slate-50 transition-colors'
+                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 hover:bg-slate-50 hover:border-gray-300 active:scale-[0.98] transition-all duration-200 login-oauth-btn'
                     type='tertiary'
                     icon={
                       <LinuxDoIcon
@@ -612,7 +600,7 @@ const LoginForm = () => {
                     <Button
                       key={provider.slug}
                       theme='outline'
-                      className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 hover:bg-slate-50 transition-colors'
+                      className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 hover:bg-slate-50 hover:border-gray-300 active:scale-[0.98] transition-all duration-200 login-oauth-btn'
                       type='tertiary'
                       icon={getOAuthProviderIcon(provider.icon || '', 20)}
                       onClick={() => handleCustomOAuthClick(provider)}
@@ -636,7 +624,7 @@ const LoginForm = () => {
                 {status.passkey_login && passkeySupported && (
                   <Button
                     theme='outline'
-                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 hover:bg-slate-50 transition-colors'
+                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 hover:bg-slate-50 hover:border-gray-300 active:scale-[0.98] transition-all duration-200 login-oauth-btn'
                     type='tertiary'
                     icon={<IconKey size='large' />}
                     onClick={handlePasskeyLogin}
@@ -653,7 +641,7 @@ const LoginForm = () => {
                 <Button
                   theme='solid'
                   type='primary'
-                  className='w-full h-12 flex items-center justify-center !rounded-xl bg-blue-600 hover:bg-blue-700'
+                  className='w-full h-12 flex items-center justify-center !rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-[0.98] transition-all duration-200 shadow-sm hover:shadow-md login-email-redirect-btn'
                   icon={<IconMail size='large' />}
                   onClick={handleEmailLoginClick}
                   loading={emailLoginLoading}
@@ -701,12 +689,12 @@ const LoginForm = () => {
               )}
 
               {!status.self_use_mode_enabled && (
-                <div className='mt-6 text-center text-sm'>
+                <div className='mt-8 text-center text-sm login-register-link-container'>
                   <Text>
                     {t('没有账户？')}{' '}
                     <Link
                       to='/register'
-                      className='text-blue-600 hover:text-blue-800 font-medium'
+                      className='text-blue-600 hover:text-blue-800 font-medium transition-colors login-register-link'
                     >
                       {t('注册')}
                     </Link>
@@ -714,7 +702,7 @@ const LoginForm = () => {
                 </div>
               )}
             </div>
-          </Card>
+          </div>
         </div>
       </div>
     );
@@ -722,15 +710,10 @@ const LoginForm = () => {
 
   const renderEmailLoginForm = () => {
     return (
-      <div className='flex flex-col items-center w-full'>
-        <div className='w-full'>
-          <Card className='border border-gray-200 !rounded-2xl overflow-hidden bg-white'>
-            <div className='flex justify-center pt-6 pb-2'>
-              <Title heading={3} className='text-slate-900'>
-                {t('登 录')}
-              </Title>
-            </div>
-            <div className='px-2 py-8'>
+      <div className='flex flex-col items-center w-full login-email-wrapper'>
+        <div className='w-full login-email-container'>
+          <div className='bg-transparent email-form-content'>
+            <div className='py-1 login-email-action-area'>
               {status.passkey_login && passkeySupported && (
                 <Button
                   theme='outline'
@@ -751,7 +734,7 @@ const LoginForm = () => {
                   name='username'
                   onChange={(value) => handleChange('username', value)}
                   prefix={<IconMail className='text-gray-400' />}
-                  className='!rounded-xl !h-12 !bg-gray-50 border-gray-200 hover:!bg-white focus:!bg-white focus:!border-blue-500 transition-all duration-200'
+                  className='!rounded-xl !h-12 !bg-gray-50 border-gray-200 hover:!bg-white focus:!bg-white focus:!border-blue-500 focus:!ring-4 focus:!ring-blue-500/10 transition-all duration-200 login-input-field'
                   noLabel={true}
                   size='large'
                 />
@@ -764,7 +747,7 @@ const LoginForm = () => {
                   mode='password'
                   onChange={(value) => handleChange('password', value)}
                   prefix={<IconLock className='text-gray-400' />}
-                  className='!rounded-xl !h-12 !bg-gray-50 border-gray-200 hover:!bg-white focus:!bg-white focus:!border-blue-500 transition-all duration-200'
+                  className='!rounded-xl !h-12 !bg-gray-50 border-gray-200 hover:!bg-white focus:!bg-white focus:!border-blue-500 focus:!ring-4 focus:!ring-blue-500/10 transition-all duration-200 login-input-field'
                   noLabel={true}
                   size='large'
                 />
@@ -794,7 +777,7 @@ const LoginForm = () => {
                     theme='solid'
                     type='primary'
                     htmlType='submit'
-                    className='w-full !h-12 !rounded-xl !text-base !font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 border-none shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5'
+                    className='w-full !h-12 !rounded-xl !text-base !font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 border-none shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 active:scale-[0.98] transition-all duration-200 login-submit-btn'
                     loading={loginLoading}
                     disabled={loginLoading}
                   >
@@ -853,20 +836,20 @@ const LoginForm = () => {
               )}
 
               {!status.self_use_mode_enabled && (
-                <div className='mt-6 text-center text-sm'>
+                <div className='mt-8 text-center text-sm login-register-link-container'>
                   <Text>
                     {t('没有账户？')}{' '}
                     <Link
                       to='/register'
-                      className='text-blue-600 hover:text-blue-800 font-medium'
+                      className='text-blue-600 hover:text-blue-800 font-medium transition-colors login-register-link'
                     >
                       {t('注册')}
                     </Link>
                   </Text>
                 </div>
               )}
+            </div>
           </div>
-          </Card>
         </div>
       </div>
     );
@@ -956,13 +939,13 @@ const LoginForm = () => {
       <div className='absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-100/40 blur-[100px] pointer-events-none' />
 
       <div className='w-full max-w-6xl bg-white/70 backdrop-blur-xl rounded-[32px] shadow-[0_24px_60px_-12px_rgba(0,0,0,0.1)] border border-white/60 overflow-hidden flex flex-col lg:flex-row relative z-10 min-h-[600px] lg:min-h-[720px]'>
-        
+
         {/* 左侧：价值主张区 - 加深背景增加对比度 */}
         <div className='hidden lg:flex flex-1 flex-col justify-center px-12 xl:px-20 relative bg-slate-50/50'>
           {/* 装饰圆点 */}
           <div className='absolute top-12 left-12 w-20 h-20 bg-blue-200/20 rounded-full blur-2xl'></div>
           <div className='absolute bottom-12 right-12 w-32 h-32 bg-indigo-200/20 rounded-full blur-3xl'></div>
-          
+
           <div className='max-w-lg relative z-10'>
             <div className='inline-flex items-center px-3 py-1 rounded-full bg-white border border-blue-100 shadow-sm mb-8 w-fit'>
               <span className='w-2 h-2 rounded-full bg-blue-500 mr-2 animate-pulse'></span>
@@ -1032,11 +1015,11 @@ const LoginForm = () => {
         </div>
 
         {/* 右侧：登录表单区 - 纯白背景 */}
-        <div className='flex-1 flex flex-col justify-center items-center px-6 sm:px-12 py-12 bg-white relative'>
-          <div className='w-full max-w-[440px]'>
-            <div className='text-center mb-10'>
-              <h2 className='text-3xl font-bold text-slate-900 mb-2'>{t('欢迎回来')}</h2>
-              <p className='text-slate-500 text-base'>{t('请输入您的账户信息以登录')}</p>
+        <div className='flex-1 flex flex-col justify-center items-center px-6 sm:px-12 py-12 bg-white relative login-right-panel'>
+          <div className='w-full max-w-[400px] login-form-wrapper'>
+            <div className='text-center mb-10 login-header-hero'>
+              <h2 className='text-2xl font-bold text-slate-800 mb-2 login-welcome-title'>{t('欢迎回来')}</h2>
+              <p className='text-slate-500 text-sm login-welcome-subtitle'>{t('请输入您的账户信息以登录')}</p>
             </div>
 
             {status.turnstile_check && (
