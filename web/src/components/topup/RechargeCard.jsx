@@ -44,7 +44,10 @@ import {
   TrendingUp,
   Receipt,
   Sparkles,
+  ExternalLink,
 } from 'lucide-react';
+
+const TOPUP_LINK = import.meta.env.VITE_TOPUP_LINK || '';
 import { useMinimumLoadingTime } from '../../hooks/common/useMinimumLoadingTime';
 import { getCurrencyConfig } from '../../helpers/render';
 import SubscriptionPlansCard from './SubscriptionPlansCard';
@@ -128,7 +131,7 @@ const RechargeCard = ({
           {/* 装饰性光效 */}
           <div className='absolute top-[-50%] left-[-50%] w-[200%] h-[200%] bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-transparent blur-3xl pointer-events-none' />
           <div className='absolute bottom-0 right-0 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl pointer-events-none' />
-          
+
           <div className='relative h-full p-6 sm:p-8 flex flex-col justify-between text-white'>
             <div className='flex justify-between items-start'>
               <div className='flex items-center gap-2'>
@@ -153,8 +156,8 @@ const RechargeCard = ({
                 <div className='font-medium tracking-wide text-lg'>{userState?.user?.username}</div>
               </div>
               <div className='text-right'>
-                 <div className='text-blue-200/60 text-[10px] font-medium uppercase tracking-wider mb-1'>{t('ID')}</div>
-                 <div className='font-mono text-sm opacity-80'>#{userState?.user?.id}</div>
+                <div className='text-blue-200/60 text-[10px] font-medium uppercase tracking-wider mb-1'>{t('ID')}</div>
+                <div className='font-mono text-sm opacity-80'>#{userState?.user?.id}</div>
               </div>
             </div>
           </div>
@@ -180,8 +183,8 @@ const RechargeCard = ({
       </div>
 
       {/* 右侧：充值操作 (7列) */}
-      <Card 
-        className='lg:col-span-7 !rounded-3xl !border-0 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-fit' 
+      <Card
+        className='lg:col-span-7 !rounded-3xl !border-0 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-fit'
         bodyStyle={{ padding: '32px' }}
       >
         <div className='mb-8'>
@@ -245,8 +248,8 @@ const RechargeCard = ({
                             }}
                             className={`
                               relative cursor-pointer rounded-xl py-3 px-2 text-center transition-all duration-200 border
-                              ${isSelected 
-                                ? 'border-blue-600 bg-blue-600 text-white shadow-lg shadow-blue-500/30 transform scale-105' 
+                              ${isSelected
+                                ? 'border-blue-600 bg-blue-600 text-white shadow-lg shadow-blue-500/30 transform scale-105'
                                 : 'border-gray-200 bg-white text-gray-700 hover:border-blue-300 hover:bg-blue-50'}
                             `}
                           >
@@ -346,10 +349,10 @@ const RechargeCard = ({
                             onClick={() => !disabled && setSelectedPayment(payMethod.type)}
                             className={`
                               cursor-pointer rounded-full px-5 py-2.5 flex items-center gap-2 border transition-all duration-200
-                              ${isSelected 
-                                ? 'border-blue-600 bg-blue-50 text-blue-700 ring-2 ring-blue-100' 
-                                : disabled 
-                                  ? 'border-gray-100 bg-gray-50 opacity-50 cursor-not-allowed' 
+                              ${isSelected
+                                ? 'border-blue-600 bg-blue-50 text-blue-700 ring-2 ring-blue-100'
+                                : disabled
+                                  ? 'border-gray-100 bg-gray-50 opacity-50 cursor-not-allowed'
                                   : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'}
                             `}
                           >
@@ -419,22 +422,49 @@ const RechargeCard = ({
             <p className='text-gray-500 text-sm mt-0.5'>{t('管理您的账户余额和充值记录')}</p>
           </div>
         </div>
-        
-        <Button
-          theme='borderless'
-          type='tertiary'
-          className='!bg-white hover:!bg-gray-50 !border !border-gray-200 !text-gray-600 !rounded-xl !px-4 !h-10 shadow-sm'
-          icon={<Receipt size={16} />}
-          onClick={onOpenHistory}
-        >
-          {t('充值记录')}
-        </Button>
+
+        <div className='flex items-center gap-2'>
+          {TOPUP_LINK && (
+            <Button
+              theme='solid'
+              type='primary'
+              className='topup-external-btn !rounded-xl !px-5 !h-10 !font-semibold shadow-md shadow-blue-500/20 hover:shadow-blue-500/40 transition-all hover:-translate-y-0.5'
+              icon={<ExternalLink size={16} />}
+              onClick={() => {
+                const url = new URL(TOPUP_LINK);
+                url.searchParams.set('user_id', userState?.user?.id || '');
+                url.searchParams.set('username', userState?.user?.username || '');
+                try {
+                  const user = JSON.parse(localStorage.getItem('user'));
+                  if (user?.token) {
+                    url.searchParams.set('token', user.token);
+                  }
+                } catch (e) { }
+                window.open(url.toString(), '_blank');
+              }}
+              style={{
+                background: 'linear-gradient(135deg, #2563eb, #3b82f6)',
+              }}
+            >
+              {t('充值')}
+            </Button>
+          )}
+          <Button
+            theme='borderless'
+            type='tertiary'
+            className='topup-history-btn !bg-white hover:!bg-gray-50 !border !border-gray-200 !text-gray-600 !rounded-xl !px-4 !h-10 shadow-sm'
+            icon={<Receipt size={16} />}
+            onClick={onOpenHistory}
+          >
+            {t('充值记录')}
+          </Button>
+        </div>
       </div>
 
       {shouldShowSubscription ? (
-        <Tabs 
-          type='line' 
-          activeKey={activeTab} 
+        <Tabs
+          type='line'
+          activeKey={activeTab}
           onChange={setActiveTab}
           className='custom-tabs'
           contentStyle={{ marginTop: '24px' }}
