@@ -82,10 +82,12 @@ const RegisterForm = () => {
     password: '',
     password2: '',
     email: '',
+    phone: '',
     verification_code: '',
+    phone_verification_code: '',
     wechat_verification_code: '',
   });
-  const { username, password, password2 } = inputs;
+  const { username, password, password2, phone } = inputs;
   const [userState, userDispatch] = useContext(UserContext);
   const [statusState] = useContext(StatusContext);
   const [turnstileEnabled, setTurnstileEnabled] = useState(false);
@@ -107,6 +109,8 @@ const RegisterForm = () => {
   const [customOAuthLoading, setCustomOAuthLoading] = useState({});
   const [disableButton, setDisableButton] = useState(false);
   const [countdown, setCountdown] = useState(30);
+  const [disablePhoneButton, setDisablePhoneButton] = useState(false);
+  const [phoneCountdown, setPhoneCountdown] = useState(60);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [hasUserAgreement, setHasUserAgreement] = useState(false);
   const [hasPrivacyPolicy, setHasPrivacyPolicy] = useState(false);
@@ -171,6 +175,19 @@ const RegisterForm = () => {
     }
     return () => clearInterval(countdownInterval); // Clean up on unmount
   }, [disableButton, countdown]);
+
+  useEffect(() => {
+    let phoneCountdownInterval = null;
+    if (disablePhoneButton && phoneCountdown > 0) {
+      phoneCountdownInterval = setInterval(() => {
+        setPhoneCountdown(phoneCountdown - 1);
+      }, 1000);
+    } else if (phoneCountdown === 0) {
+      setDisablePhoneButton(false);
+      setPhoneCountdown(60);
+    }
+    return () => clearInterval(phoneCountdownInterval); // Clean up on unmount
+  }, [disablePhoneButton, phoneCountdown]);
 
   useEffect(() => {
     return () => {
@@ -278,6 +295,34 @@ const RegisterForm = () => {
       }
     } catch (error) {
       showError('发送验证码失败，请重试');
+    } finally {
+      setVerificationCodeLoading(false);
+    }
+  };
+
+  const sendPhoneVerificationCode = async () => {
+    if (inputs.phone === '') {
+      showInfo('请输入手机号');
+      return;
+    }
+    if (turnstileEnabled && turnstileToken === '') {
+      showInfo('请稍后几秒重试，Turnstile 正在检查用户环境！');
+      return;
+    }
+    setVerificationCodeLoading(true);
+    try {
+      const res = await API.get(
+        `/api/verification/sms?phone=${encodeURIComponent(inputs.phone)}&turnstile=${turnstileToken}`,
+      );
+      const { success, message } = res.data;
+      if (success) {
+        showSuccess('短信验证码发送成功！');
+        setDisablePhoneButton(true); // 发送成功后禁用按钮，开始倒计时
+      } else {
+        showError(message);
+      }
+    } catch (error) {
+      showError('发送短信验证码失败，请重试');
     } finally {
       setVerificationCodeLoading(false);
     }
@@ -631,19 +676,44 @@ const RegisterForm = () => {
                   </>
                 )}
 
-                {!status.email_verification && (
-                  <Form.Input
-                    field='invite_code'
-                    label={t('邀请码')}
-                    placeholder={t('请输入邀请码（可选）')}
-                    name='invite_code'
-                    onChange={(value) => handleChange('invite_code', value)}
-                    prefix={<IconUser className='text-gray-400' />}
-                    className='!rounded-xl !h-12 !bg-gray-50 border-gray-200 hover:!bg-white focus:!bg-white focus:!border-blue-500 focus:!ring-4 focus:!ring-blue-500/10 transition-all duration-200 register-input-field'
-                    noLabel={true}
-                    size='large'
-                  />
-                )}
+                <Form.Input
+                  field='phone'
+                  label={t('手机号')}
+                  placeholder={t('请输入手机号')}
+                  name='phone'
+                  onChange={(value) => handleChange('phone', value)}
+                  prefix={<IconUser className='text-gray-400' />}
+                  className='!rounded-xl !h-12 !bg-gray-50 border-gray-200 hover:!bg-white focus:!bg-white focus:!border-blue-500 focus:!ring-4 focus:!ring-blue-500/10 transition-all duration-200 register-input-field phone-input'
+                  noLabel={true}
+                  size='large'
+                />
+
+                <Form.Input
+                  field='phone_verification_code'
+                  label={t('短信验证码')}
+                  placeholder={t('请输入短信验证码')}
+                  name='phone_verification_code'
+                  onChange={(value) => handleChange('phone_verification_code', value)}
+                  prefix={<IconKey className='text-gray-400' />}
+                  className='!rounded-xl !h-12 !bg-gray-50 border-gray-200 hover:!bg-white focus:!bg-white focus:!border-blue-500 focus:!ring-4 focus:!ring-blue-500/10 transition-all duration-200 register-input-field phone-code-input'
+                  noLabel={true}
+                  size='large'
+                  suffix={
+                    <Button
+                      theme='solid'
+                      type='primary'
+                      onClick={sendPhoneVerificationCode}
+                      disabled={verificationCodeLoading || disablePhoneButton}
+                      className='mr-1 !rounded-lg !h-8 !px-3 !bg-blue-100 !text-blue-600 hover:!bg-blue-200 hover:!text-blue-700 !border-none !font-medium active:scale-[0.95] transition-all register-send-code-btn'
+                    >
+                      {disablePhoneButton
+                        ? `${t('重发')} (${phoneCountdown})`
+                        : t('发送验证码')}
+                    </Button>
+                  }
+                />
+
+
 
                 <div className='flex items-center justify-between pt-2 pb-2'>
                   <Checkbox
