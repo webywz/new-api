@@ -388,7 +388,7 @@ const EditTagModal = (props) => {
       width={600}
       onCancel={handleClose}
       footer={
-        <div className='flex justify-end bg-[var(--semi-color-bg-0)]'>
+        <div className='flex justify-end bg-white dark:bg-transparent'>
           <Space>
             <Button
               theme='solid'

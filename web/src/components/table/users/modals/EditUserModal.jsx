@@ -176,7 +176,7 @@ const EditUserModal = (props) => {
         visible={props.visible}
         width={isMobile ? '100%' : 600}
         footer={
-          <div className='flex justify-end bg-[var(--semi-color-bg-0)]'>
+          <div className='flex justify-end bg-white dark:bg-transparent'>
             <Space>
               <Button
                 theme='solid'
