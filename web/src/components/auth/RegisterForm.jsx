@@ -450,7 +450,7 @@ const RegisterForm = () => {
                 {status.wechat_login && (
                   <Button
                     theme='outline'
-                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 hover:bg-gray-50 hover:border-gray-300 active:scale-[0.98] transition-all duration-200 register-oauth-btn'
+                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-800 hover:border-gray-300 dark:hover:border-slate-600 active:scale-[0.98] transition-all duration-200 register-oauth-btn !text-slate-700 dark:!text-slate-200'
                     type='tertiary'
                     icon={
                       <Icon svg={<WeChatIcon />} style={{ color: '#07C160' }} />
@@ -465,7 +465,7 @@ const RegisterForm = () => {
                 {status.github_oauth && (
                   <Button
                     theme='outline'
-                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 hover:bg-slate-50 hover:border-gray-300 active:scale-[0.98] transition-all duration-200 register-oauth-btn'
+                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-gray-300 dark:hover:border-slate-600 active:scale-[0.98] transition-all duration-200 register-oauth-btn !text-slate-700 dark:!text-slate-200'
                     type='tertiary'
                     icon={<IconGithubLogo size='large' />}
                     onClick={handleGitHubClick}
@@ -479,7 +479,7 @@ const RegisterForm = () => {
                 {status.discord_oauth && (
                   <Button
                     theme='outline'
-                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 hover:bg-slate-50 hover:border-gray-300 active:scale-[0.98] transition-all duration-200 register-oauth-btn'
+                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-gray-300 dark:hover:border-slate-600 active:scale-[0.98] transition-all duration-200 register-oauth-btn !text-slate-700 dark:!text-slate-200'
                     type='tertiary'
                     icon={
                       <SiDiscord
@@ -500,7 +500,7 @@ const RegisterForm = () => {
                 {status.oidc_enabled && (
                   <Button
                     theme='outline'
-                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 hover:bg-slate-50 hover:border-gray-300 active:scale-[0.98] transition-all duration-200 register-oauth-btn'
+                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-gray-300 dark:hover:border-slate-600 active:scale-[0.98] transition-all duration-200 register-oauth-btn !text-slate-700 dark:!text-slate-200'
                     type='tertiary'
                     icon={<OIDCIcon style={{ color: '#1877F2' }} />}
                     onClick={handleOIDCClick}
@@ -513,7 +513,7 @@ const RegisterForm = () => {
                 {status.linuxdo_oauth && (
                   <Button
                     theme='outline'
-                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 hover:bg-slate-50 hover:border-gray-300 active:scale-[0.98] transition-all duration-200 register-oauth-btn'
+                    className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-gray-300 dark:hover:border-slate-600 active:scale-[0.98] transition-all duration-200 register-oauth-btn !text-slate-700 dark:!text-slate-200'
                     type='tertiary'
                     icon={
                       <LinuxDoIcon
@@ -536,7 +536,7 @@ const RegisterForm = () => {
                     <Button
                       key={provider.slug}
                       theme='outline'
-                      className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 hover:bg-slate-50 hover:border-gray-300 active:scale-[0.98] transition-all duration-200 register-oauth-btn'
+                      className='w-full h-12 flex items-center justify-center !rounded-xl border border-gray-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-gray-300 dark:hover:border-slate-600 active:scale-[0.98] transition-all duration-200 register-oauth-btn !text-slate-700 dark:!text-slate-200'
                       type='tertiary'
                       icon={getOAuthProviderIcon(provider.icon || '', 20)}
                       onClick={() => handleCustomOAuthClick(provider)}
@@ -574,11 +574,11 @@ const RegisterForm = () => {
               </div>
 
               <div className='mt-8 text-center text-sm register-login-link-container'>
-                <Text>
+                <Text className='text-gray-900 dark:text-gray-100'>
                   {t('已有账户？')}{' '}
                   <Link
                     to='/login'
-                    className='text-blue-600 hover:text-blue-800 font-medium transition-colors register-login-link'
+                    className='text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium transition-colors register-login-link'
                   >
                     {t('登录')}
                   </Link>
@@ -604,8 +604,8 @@ const RegisterForm = () => {
                   placeholder={t('请输入用户名')}
                   name='username'
                   onChange={(value) => handleChange('username', value)}
-                  prefix={<IconUser className='text-gray-400' />}
-                  className='!rounded-xl !h-12 !bg-gray-50 border-gray-200 hover:!bg-white focus:!bg-white focus:!border-blue-500 focus:!ring-4 focus:!ring-blue-500/10 transition-all duration-200 register-input-field'
+                  prefix={<IconUser className='text-gray-400 dark:text-gray-500' />}
+                  className='!rounded-xl !h-12 custom-auth-input register-input-field'
                   noLabel={true}
                   size='large'
                 />
@@ -617,8 +617,8 @@ const RegisterForm = () => {
                   name='password'
                   mode='password'
                   onChange={(value) => handleChange('password', value)}
-                  prefix={<IconLock className='text-gray-400' />}
-                  className='!rounded-xl !h-12 !bg-gray-50 border-gray-200 hover:!bg-white focus:!bg-white focus:!border-blue-500 focus:!ring-4 focus:!ring-blue-500/10 transition-all duration-200 register-input-field'
+                  prefix={<IconLock className='text-gray-400 dark:text-gray-500' />}
+                  className='!rounded-xl !h-12 custom-auth-input register-input-field'
                   noLabel={true}
                   size='large'
                 />
@@ -630,8 +630,8 @@ const RegisterForm = () => {
                   name='password2'
                   mode='password'
                   onChange={(value) => handleChange('password2', value)}
-                  prefix={<IconLock className='text-gray-400' />}
-                  className='!rounded-xl !h-12 !bg-gray-50 border-gray-200 hover:!bg-white focus:!bg-white focus:!border-blue-500 focus:!ring-4 focus:!ring-blue-500/10 transition-all duration-200 register-input-field'
+                  prefix={<IconLock className='text-gray-400 dark:text-gray-500' />}
+                  className='!rounded-xl !h-12 custom-auth-input register-input-field'
                   noLabel={true}
                   size='large'
                 />
@@ -644,8 +644,8 @@ const RegisterForm = () => {
                       placeholder={t('请输入邮箱地址')}
                       name='email'
                       onChange={(value) => handleChange('email', value)}
-                      prefix={<IconMail className='text-gray-400' />}
-                      className='!rounded-xl !h-12 !bg-gray-50 border-gray-200 hover:!bg-white focus:!bg-white focus:!border-blue-500 focus:!ring-4 focus:!ring-blue-500/10 transition-all duration-200 register-input-field'
+                      prefix={<IconMail className='text-gray-400 dark:text-gray-500' />}
+                      className='!rounded-xl !h-12 custom-auth-input register-input-field'
                       noLabel={true}
                       size='large'
                     />
@@ -655,8 +655,8 @@ const RegisterForm = () => {
                       placeholder={t('请输入验证码')}
                       name='verification_code'
                       onChange={(value) => handleChange('verification_code', value)}
-                      prefix={<IconKey className='text-gray-400' />}
-                      className='!rounded-xl !h-12 !bg-gray-50 border-gray-200 hover:!bg-white focus:!bg-white focus:!border-blue-500 focus:!ring-4 focus:!ring-blue-500/10 transition-all duration-200 register-input-field'
+                      prefix={<IconKey className='text-gray-400 dark:text-gray-500' />}
+                      className='!rounded-xl !h-12 custom-auth-input register-input-field'
                       noLabel={true}
                       size='large'
                       suffix={
@@ -665,7 +665,7 @@ const RegisterForm = () => {
                           type='primary'
                           onClick={sendVerificationCode}
                           disabled={verificationCodeLoading || disableButton}
-                          className='mr-1 !rounded-lg !h-8 !px-3 !bg-blue-100 !text-blue-600 hover:!bg-blue-200 hover:!text-blue-700 !border-none !font-medium active:scale-[0.95] transition-all register-send-code-btn'
+                          className='mr-1 !rounded-lg !h-8 !px-3 !bg-blue-100 dark:!bg-blue-900/30 !text-blue-600 dark:!text-blue-400 hover:!bg-blue-200 dark:hover:!bg-blue-800/50 hover:!text-blue-700 dark:hover:!text-blue-300 !border-none !font-medium active:scale-[0.95] transition-all register-send-code-btn'
                         >
                           {disableButton
                             ? `${t('重发')} (${countdown})`
@@ -682,8 +682,8 @@ const RegisterForm = () => {
                   placeholder={t('请输入手机号')}
                   name='phone'
                   onChange={(value) => handleChange('phone', value)}
-                  prefix={<IconUser className='text-gray-400' />}
-                  className='!rounded-xl !h-12 !bg-gray-50 border-gray-200 hover:!bg-white focus:!bg-white focus:!border-blue-500 focus:!ring-4 focus:!ring-blue-500/10 transition-all duration-200 register-input-field phone-input'
+                  prefix={<IconUser className='text-gray-400 dark:text-gray-500' />}
+                  className='!rounded-xl !h-12 custom-auth-input register-input-field phone-input'
                   noLabel={true}
                   size='large'
                 />
@@ -694,8 +694,8 @@ const RegisterForm = () => {
                   placeholder={t('请输入短信验证码')}
                   name='phone_verification_code'
                   onChange={(value) => handleChange('phone_verification_code', value)}
-                  prefix={<IconKey className='text-gray-400' />}
-                  className='!rounded-xl !h-12 !bg-gray-50 border-gray-200 hover:!bg-white focus:!bg-white focus:!border-blue-500 focus:!ring-4 focus:!ring-blue-500/10 transition-all duration-200 register-input-field phone-code-input'
+                  prefix={<IconKey className='text-gray-400 dark:text-gray-500' />}
+                  className='!rounded-xl !h-12 custom-auth-input register-input-field phone-code-input'
                   noLabel={true}
                   size='large'
                   suffix={
@@ -704,7 +704,7 @@ const RegisterForm = () => {
                       type='primary'
                       onClick={sendPhoneVerificationCode}
                       disabled={verificationCodeLoading || disablePhoneButton}
-                      className='mr-1 !rounded-lg !h-8 !px-3 !bg-blue-100 !text-blue-600 hover:!bg-blue-200 hover:!text-blue-700 !border-none !font-medium active:scale-[0.95] transition-all register-send-code-btn'
+                      className='mr-1 !rounded-lg !h-8 !px-3 !bg-blue-100 dark:!bg-blue-900/30 !text-blue-600 dark:!text-blue-400 hover:!bg-blue-200 dark:hover:!bg-blue-800/50 hover:!text-blue-700 dark:hover:!text-blue-300 !border-none !font-medium active:scale-[0.95] transition-all register-send-code-btn'
                     >
                       {disablePhoneButton
                         ? `${t('重发')} (${phoneCountdown})`
@@ -720,7 +720,7 @@ const RegisterForm = () => {
                     checked={agreedToTerms}
                     onChange={(e) => setAgreedToTerms(e.target.checked)}
                   >
-                    <Text className='text-gray-500 hover:text-gray-700 transition-colors'>
+                    <Text className='text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors'>
                       {t('我已阅读并同意')}
                     </Text>
                   </Checkbox>
@@ -741,7 +741,7 @@ const RegisterForm = () => {
                 </div>
 
                 {(hasUserAgreement || hasPrivacyPolicy) && (
-                  <div className='flex items-center justify-center pt-4 text-xs text-gray-400'>
+                  <div className='flex items-center justify-center pt-4 text-xs text-gray-400 dark:text-gray-500'>
                     <span>
                       {t('注册即代表您同意')}
                       {hasUserAgreement && (
@@ -749,7 +749,7 @@ const RegisterForm = () => {
                           href='/user-agreement'
                           target='_blank'
                           rel='noopener noreferrer'
-                          className='text-blue-600 hover:text-blue-800 mx-1'
+                          className='text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 mx-1'
                         >
                           {t('用户协议')}
                         </a>
@@ -760,7 +760,7 @@ const RegisterForm = () => {
                           href='/privacy-policy'
                           target='_blank'
                           rel='noopener noreferrer'
-                          className='text-blue-600 hover:text-blue-800 mx-1'
+                          className='text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 mx-1'
                         >
                           {t('隐私政策')}
                         </a>
@@ -780,7 +780,7 @@ const RegisterForm = () => {
                     <Button
                       theme='outline'
                       type='tertiary'
-                      className='w-full !rounded-xl'
+                      className='w-full !rounded-xl dark:text-slate-200 dark:border-slate-700 dark:hover:bg-slate-800'
                       onClick={handleOtherRegisterOptionsClick}
                       loading={otherRegisterOptionsLoading}
                     >
@@ -791,11 +791,11 @@ const RegisterForm = () => {
               )}
 
               <div className='mt-8 text-center text-sm register-login-link-container'>
-                <Text>
+                <Text className='text-gray-900 dark:text-gray-100'>
                   {t('已有账户？')}{' '}
                   <Link
                     to='/login'
-                    className='text-blue-600 hover:text-blue-800 font-medium transition-colors register-login-link'
+                    className='text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium transition-colors register-login-link'
                   >
                     {t('登录')}
                   </Link>
@@ -848,80 +848,80 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className='min-h-screen w-full flex items-center justify-center bg-slate-50 relative overflow-hidden p-4 sm:p-6'>
+    <div className='min-h-screen w-full flex items-center justify-center bg-slate-50 dark:bg-slate-900 relative overflow-hidden p-4 sm:p-6'>
       {/* 背景装饰 */}
-      <div className='absolute top-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-blue-100/40 blur-[100px] pointer-events-none' />
-      <div className='absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-100/40 blur-[100px] pointer-events-none' />
+      <div className='absolute top-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-blue-100/40 dark:bg-blue-900/20 blur-[100px] pointer-events-none' />
+      <div className='absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-100/40 dark:bg-indigo-900/20 blur-[100px] pointer-events-none' />
 
-      <div className='w-full max-w-6xl bg-white/70 backdrop-blur-xl rounded-[32px] shadow-[0_24px_60px_-12px_rgba(0,0,0,0.1)] border border-white/60 overflow-hidden flex flex-col lg:flex-row relative z-10 min-h-[600px] lg:min-h-[720px]'>
+      <div className='w-full max-w-6xl bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-[32px] shadow-[0_24px_60px_-12px_rgba(0,0,0,0.1)] border border-white/60 dark:border-slate-700/60 overflow-hidden flex flex-col lg:flex-row relative z-10 min-h-[600px] lg:min-h-[720px]'>
 
         {/* 左侧：价值主张区 - 加深背景增加对比度 */}
-        <div className='hidden lg:flex flex-1 flex-col justify-center px-12 xl:px-20 relative bg-slate-50/50'>
+        <div className='hidden lg:flex flex-1 flex-col justify-center px-12 xl:px-20 relative bg-slate-50/50 dark:bg-slate-900/50'>
           {/* 装饰圆点 */}
-          <div className='absolute top-12 right-12 w-20 h-20 bg-blue-200/20 rounded-full blur-2xl'></div>
-          <div className='absolute bottom-12 left-12 w-32 h-32 bg-indigo-200/20 rounded-full blur-3xl'></div>
+          <div className='absolute top-12 right-12 w-20 h-20 bg-blue-200/20 dark:bg-blue-800/20 rounded-full blur-2xl'></div>
+          <div className='absolute bottom-12 left-12 w-32 h-32 bg-indigo-200/20 dark:bg-indigo-800/20 rounded-full blur-3xl'></div>
 
           <div className='max-w-lg relative z-10'>
-            <div className='inline-flex items-center px-3 py-1 rounded-full bg-white border border-blue-100 shadow-sm mb-8 w-fit'>
+            <div className='inline-flex items-center px-3 py-1 rounded-full bg-white dark:bg-slate-800 border border-blue-100 dark:border-blue-900/50 shadow-sm mb-8 w-fit'>
               <span className='w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse'></span>
-              <span className='text-xs font-medium text-blue-700 tracking-wide'>
+              <span className='text-xs font-medium text-blue-700 dark:text-blue-400 tracking-wide'>
                 {t('立即加入')}
               </span>
             </div>
-            <h1 className='text-4xl font-bold text-slate-900 leading-tight mb-6'>
+            <h1 className='text-4xl font-bold text-slate-900 dark:text-slate-100 leading-tight mb-6'>
               {t('开启您的')} <br />
-              <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600'>
+              <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400'>
                 {t('AI 创新之旅')}
               </span>
             </h1>
-            <p className='text-lg text-slate-600 mb-10 leading-relaxed'>
+            <p className='text-lg text-slate-600 dark:text-slate-400 mb-10 leading-relaxed'>
               {t(
                 '注册即享统一的大模型接入网关，完善的额度管理与分发系统，让 AI 能力触手可及。',
               )}
             </p>
 
             <div className='grid grid-cols-2 gap-4'>
-              <div className='p-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 group'>
-                <div className='w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center mb-3 group-hover:bg-blue-600 transition-colors duration-300'>
-                  <IconLayers className='text-blue-600 group-hover:text-white transition-colors duration-300' size='large' />
+              <div className='p-4 bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 group'>
+                <div className='w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center mb-3 group-hover:bg-blue-600 transition-colors duration-300'>
+                  <IconLayers className='text-blue-600 dark:text-blue-400 group-hover:text-white transition-colors duration-300' size='large' />
                 </div>
-                <Text className='text-slate-900 font-semibold block text-base mb-1'>
+                <Text className='text-slate-900 dark:text-slate-100 font-semibold block text-base mb-1'>
                   {t('快速接入')}
                 </Text>
-                <Text className='text-slate-500 text-xs leading-relaxed block'>
+                <Text className='text-slate-500 dark:text-slate-400 text-xs leading-relaxed block'>
                   {t('注册后立即可用')}
                 </Text>
               </div>
-              <div className='p-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 group'>
-                <div className='w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center mb-3 group-hover:bg-indigo-600 transition-colors duration-300'>
-                  <IconActivity className='text-indigo-600 group-hover:text-white transition-colors duration-300' size='large' />
+              <div className='p-4 bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 group'>
+                <div className='w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center mb-3 group-hover:bg-indigo-600 transition-colors duration-300'>
+                  <IconActivity className='text-indigo-600 dark:text-indigo-400 group-hover:text-white transition-colors duration-300' size='large' />
                 </div>
-                <Text className='text-slate-900 font-semibold block text-base mb-1'>
+                <Text className='text-slate-900 dark:text-slate-100 font-semibold block text-base mb-1'>
                   {t('清晰用量')}
                 </Text>
-                <Text className='text-slate-500 text-xs leading-relaxed block'>
+                <Text className='text-slate-500 dark:text-slate-400 text-xs leading-relaxed block'>
                   {t('用量与成本可视')}
                 </Text>
               </div>
-              <div className='p-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 group'>
-                <div className='w-10 h-10 rounded-xl bg-cyan-50 flex items-center justify-center mb-3 group-hover:bg-cyan-600 transition-colors duration-300'>
-                  <IconKey className='text-cyan-600 group-hover:text-white transition-colors duration-300' size='large' />
+              <div className='p-4 bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 group'>
+                <div className='w-10 h-10 rounded-xl bg-cyan-50 dark:bg-cyan-900/30 flex items-center justify-center mb-3 group-hover:bg-cyan-600 transition-colors duration-300'>
+                  <IconKey className='text-cyan-600 dark:text-cyan-400 group-hover:text-white transition-colors duration-300' size='large' />
                 </div>
-                <Text className='text-slate-900 font-semibold block text-base mb-1'>
+                <Text className='text-slate-900 dark:text-slate-100 font-semibold block text-base mb-1'>
                   {t('统一密钥')}
                 </Text>
-                <Text className='text-slate-500 text-xs leading-relaxed block'>
+                <Text className='text-slate-500 dark:text-slate-400 text-xs leading-relaxed block'>
                   {t('单密钥多模型')}
                 </Text>
               </div>
-              <div className='p-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 group'>
-                <div className='w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center mb-3 group-hover:bg-emerald-600 transition-colors duration-300'>
-                  <IconBolt className='text-emerald-600 group-hover:text-white transition-colors duration-300' size='large' />
+              <div className='p-4 bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 group'>
+                <div className='w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center mb-3 group-hover:bg-emerald-600 transition-colors duration-300'>
+                  <IconBolt className='text-emerald-600 dark:text-emerald-400 group-hover:text-white transition-colors duration-300' size='large' />
                 </div>
-                <Text className='text-slate-900 font-semibold block text-base mb-1'>
+                <Text className='text-slate-900 dark:text-slate-100 font-semibold block text-base mb-1'>
                   {t('易于扩展')}
                 </Text>
-                <Text className='text-slate-500 text-xs leading-relaxed block'>
+                <Text className='text-slate-500 dark:text-slate-400 text-xs leading-relaxed block'>
                   {t('随业务增长扩容')}
                 </Text>
               </div>
@@ -930,7 +930,7 @@ const RegisterForm = () => {
         </div>
 
         {/* 右侧：注册表单区 - 纯白背景 */}
-        <div className='flex-1 flex flex-col justify-center items-center px-6 sm:px-12 py-12 bg-white relative register-right-panel'>
+        <div className='flex-1 flex flex-col justify-center items-center px-6 sm:px-12 py-12 bg-white dark:bg-slate-800 relative register-right-panel'>
           <div className='w-full max-w-[400px] register-form-wrapper'>
             <div className='text-center mb-10 register-header-hero'>
               {/* <div className='flex items-center justify-center mb-6 gap-3 register-logo-header'>
@@ -939,8 +939,8 @@ const RegisterForm = () => {
                   {systemName}
                 </Title>
               </div> */}
-              <h2 className='text-2xl font-bold text-slate-800 mb-2 register-welcome-title'>{t('创建您的账户')}</h2>
-              <p className='text-slate-500 text-sm register-welcome-subtitle'>{t('请填写下方信息以注册')}</p>
+              <h2 className='text-2xl font-bold text-slate-800 dark:text-slate-100 mb-2 register-welcome-title'>{t('创建您的账户')}</h2>
+              <p className='text-slate-500 dark:text-slate-400 text-sm register-welcome-subtitle'>{t('请填写下方信息以注册')}</p>
             </div>
             {showEmailRegister || !hasOAuthRegisterOptions
               ? renderEmailRegisterForm()

@@ -668,6 +668,7 @@ code {
   width: 0 !important;
   height: 0 !important;
   display: none !important;
+  /* Chrome, Safari, Opera */
 }
 
 .semi-scrolllist-body {
@@ -910,4 +911,43 @@ html.dark .with-pastel-balls::before {
 .semi-button,
 .semi-datepicker-range-input {
   border-radius: 10px !important;
+}
+
+/* ==================== 登录/注册页输入框自定义样式 ==================== */
+.custom-auth-input .semi-input-wrapper {
+  background-color: #f9fafb !important; /* gray-50 */
+  border: 1px solid #e5e7eb !important; /* gray-200 */
+  color: var(--semi-color-text-0) !important;
+  transition: all 0.2s;
+}
+
+.dark .custom-auth-input .semi-input-wrapper {
+  background-color: rgba(51, 65, 85, 0.5) !important; /* slate-700/50 */
+  border: 1px solid #475569 !important; /* slate-600 */
+}
+
+/* 覆盖 hover/focus */
+.custom-auth-input .semi-input-wrapper:hover,
+.custom-auth-input .semi-input-wrapper-focus {
+  background-color: #ffffff !important;
+  border-color: var(--semi-color-primary) !important;
+}
+
+.dark .custom-auth-input .semi-input-wrapper:hover,
+.dark .custom-auth-input .semi-input-wrapper-focus {
+  background-color: #334155 !important; /* slate-700 */
+  border-color: var(--semi-color-primary) !important;
+}
+
+.custom-auth-input .semi-input {
+  background-color: transparent !important;
+  color: var(--semi-color-text-0) !important;
+}
+
+.custom-auth-input .semi-input::placeholder {
+  color: var(--semi-color-text-2) !important;
+}
+
+.dark .custom-auth-input .semi-input::placeholder {
+  color: #94a3b8 !important; /* slate-400 */
 }
