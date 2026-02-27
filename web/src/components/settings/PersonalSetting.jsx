@@ -443,15 +443,15 @@ const PersonalSetting = () => {
   };
 
   return (
-    <div className='mt-[60px]'>
+    <div className='personal-setting-page mt-[60px] pb-8'>
       <div className='flex justify-center'>
-        <div className='w-full max-w-7xl mx-auto px-2'>
+        <div className='personal-setting-container w-full max-w-7xl mx-auto px-4 sm:px-6'>
           {/* 顶部用户信息区域 */}
           <UserInfoHeader t={t} userState={userState} />
 
           {/* 签到日历 - 仅在启用时显示 */}
           {status?.checkin_enabled && (
-            <div className='mt-4 md:mt-6'>
+            <div className='checkin-calendar-section mt-4 md:mt-6'>
               <CheckinCalendar
                 t={t}
                 status={status}
@@ -462,9 +462,9 @@ const PersonalSetting = () => {
           )}
 
           {/* 账户管理和其他设置 */}
-          <div className='grid grid-cols-1 xl:grid-cols-2 items-start gap-4 md:gap-6 mt-4 md:mt-6'>
+          <div className='settings-grid grid grid-cols-1 xl:grid-cols-2 items-start gap-4 md:gap-6 lg:gap-8 mt-4 md:mt-6 lg:mt-8'>
             {/* 左侧：账户管理设置 */}
-            <div className='flex flex-col gap-4 md:gap-6'>
+            <div className='settings-left-column flex flex-col gap-4 md:gap-6 lg:gap-8'>
               <AccountManagement
                 t={t}
                 userState={userState}
@@ -489,12 +489,14 @@ const PersonalSetting = () => {
             </div>
 
             {/* 右侧：其他设置 */}
-            <NotificationSettings
-              t={t}
-              notificationSettings={notificationSettings}
-              handleNotificationSettingChange={handleNotificationSettingChange}
-              saveNotificationSettings={saveNotificationSettings}
-            />
+            <div className='settings-right-column flex flex-col gap-4 md:gap-6 lg:gap-8'>
+              <NotificationSettings
+                t={t}
+                notificationSettings={notificationSettings}
+                handleNotificationSettingChange={handleNotificationSettingChange}
+                saveNotificationSettings={saveNotificationSettings}
+              />
+            </div>
           </div>
         </div>
       </div>

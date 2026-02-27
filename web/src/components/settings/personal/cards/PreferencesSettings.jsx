@@ -29,9 +29,9 @@ const languageOptions = [
 	{ value: "zh-CN", label: "简体中文" },
 	{ value: "zh-TW", label: "繁體中文" },
 	{ value: "en", label: "English" },
-	{ value: 'fr', label: 'Français'},
-	{ value: 'ru', label: 'Русский'},
-	{ value: 'ja', label: '日本語'},
+	{ value: 'fr', label: 'Français' },
+	{ value: 'ru', label: 'Русский' },
+	{ value: 'ja', label: '日本語' },
 	{ value: "vi", label: "Tiếng Việt" },
 ];
 
@@ -114,7 +114,7 @@ const PreferencesSettings = ({ t }) => {
 	};
 
 	return (
-		<Card className="!rounded-2xl shadow-sm border-0">
+		<Card className="preferences-settings-card !rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
 			{/* Card Header */}
 			<div className="flex items-center mb-4">
 				<Avatar size="small" color="violet" className="mr-3 shadow-md">
@@ -130,7 +130,7 @@ const PreferencesSettings = ({ t }) => {
 				</div>
 			</div>
 			{/* Language Setting Card */}
-			<Card className="!rounded-xl border dark:border-gray-700">
+			<Card className="language-setting-card !rounded-xl border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors duration-300">
 				<div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between gap-4">
 					<div className="flex items-start w-full sm:w-auto">
 						<div className="w-12 h-12 rounded-full bg-violet-50 dark:bg-violet-900/30 flex items-center justify-center mr-4 flex-shrink-0">

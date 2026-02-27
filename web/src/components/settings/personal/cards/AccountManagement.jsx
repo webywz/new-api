@@ -169,7 +169,7 @@ const AccountManagement = ({
     : t('尚未使用');
 
   return (
-    <Card className='!rounded-2xl'>
+    <Card className='account-management-card !rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800'>
       {/* 卡片头部 */}
       <div className='flex items-center mb-4'>
         <Avatar size='small' color='teal' className='mr-3 shadow-md'>
@@ -199,7 +199,7 @@ const AccountManagement = ({
           <div className='py-4'>
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
               {/* 邮箱绑定 */}
-              <Card className='!rounded-xl'>
+              <Card className='provider-card !rounded-xl border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors duration-300'>
                 <div className='flex items-center justify-between gap-3'>
                   <div className='flex items-center flex-1 min-w-0'>
                     <div className='w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center mr-3 flex-shrink-0'>
@@ -523,7 +523,7 @@ const AccountManagement = ({
                   const bound = isCustomOAuthBound(provider.id);
                   const binding = getCustomOAuthBinding(provider.id);
                   return (
-                    <Card key={provider.slug} className='!rounded-xl'>
+                    <Card key={provider.slug} className='provider-card !rounded-xl border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors duration-300'>
                       <div className='flex items-center justify-between gap-3'>
                         <div className='flex items-center flex-1 min-w-0'>
                           <div className='w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center mr-3 flex-shrink-0'>
@@ -539,9 +539,9 @@ const AccountManagement = ({
                             <div className='text-sm text-gray-500 truncate'>
                               {bound
                                 ? renderAccountInfo(
-                                    binding?.provider_user_id,
-                                    t('{{name}} ID', { name: provider.name }),
-                                  )
+                                  binding?.provider_user_id,
+                                  t('{{name}} ID', { name: provider.name }),
+                                )
                                 : t('未绑定')}
                             </div>
                           </div>
@@ -631,7 +631,7 @@ const AccountManagement = ({
                 </Card> */}
 
                 {/* 密码管理 */}
-                <Card className='!rounded-xl w-full'>
+                <Card className='security-card !rounded-xl w-full border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors duration-300'>
                   <div className='flex flex-col sm:flex-row items-start sm:justify-between gap-4'>
                     <div className='flex items-start w-full sm:w-auto'>
                       <div className='w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mr-4 flex-shrink-0'>
@@ -723,7 +723,7 @@ const AccountManagement = ({
                 {/* <TwoFASetting t={t} /> */}
 
                 {/* 危险区域 */}
-                <Card className='!rounded-xl w-full'>
+                <Card className='danger-card !rounded-xl w-full border border-red-100 dark:border-red-900/30 bg-red-50/30 dark:bg-red-900/10'>
                   <div className='flex flex-col sm:flex-row items-start sm:justify-between gap-4'>
                     <div className='flex items-start w-full sm:w-auto'>
                       <div className='w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mr-4 flex-shrink-0'>

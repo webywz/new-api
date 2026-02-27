@@ -302,7 +302,7 @@ const NotificationSettings = ({
 
   return (
     <Card
-      className='!rounded-2xl shadow-sm border-0'
+      className='notification-settings-card !rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800'
       footer={
         <div className='flex justify-end gap-3'>
           {activeTabKey === 'sidebar' ? (
@@ -816,12 +816,11 @@ const NotificationSettings = ({
                                 xl={8}
                               >
                                 <Card
-                                  className={`!rounded-xl border border-gray-200 hover:border-blue-300 transition-all duration-200 ${
-                                    sidebarModulesUser[section.key]?.enabled !==
-                                    false
+                                  className={`!rounded-xl border border-gray-200 hover:border-blue-300 transition-all duration-200 ${sidebarModulesUser[section.key]?.enabled !==
+                                      false
                                       ? ''
                                       : 'opacity-50'
-                                  }`}
+                                    }`}
                                   bodyStyle={{ padding: '16px' }}
                                   hoverable
                                 >
@@ -848,7 +847,7 @@ const NotificationSettings = ({
                                       <Switch
                                         checked={
                                           sidebarModulesUser[section.key]?.[
-                                            module.key
+                                          module.key
                                           ] !== false
                                         }
                                         onChange={handleModuleChange(
