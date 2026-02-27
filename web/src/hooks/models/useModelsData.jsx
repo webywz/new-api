@@ -136,9 +136,67 @@ export const useModelsData = () => {
       const res = await API.get(url);
       const { success, message, data } = res.data;
       if (success) {
-        const newPageData = extractItems(data);
+        let newPageData = extractItems(data);
+        let count = data.total || newPageData.length;
+
+        // --- Mock Data Injection for UI Observation ---
+        if (newPageData.length === 0) {
+          newPageData = [
+            {
+              id: "mock-1",
+              model_name: "gpt-4-turbo",
+              vendor_id: "openai",
+              icon: "OpenAI",
+              description: "The latest highly capable model from OpenAI.",
+              tags: "text,vision,chat",
+              enable_groups: ["default", "vip"],
+              quota_types: [0],
+              sync_official: 1,
+              status: 1
+            },
+            {
+              id: "mock-2",
+              model_name: "claude-3-opus",
+              vendor_id: "anthropic",
+              icon: "Anthropic",
+              description: "Anthropic's most powerful model for highly complex tasks.",
+              tags: "text,chat",
+              enable_groups: ["vip", "svip"],
+              quota_types: [0],
+              sync_official: 0,
+              status: 1
+            },
+            {
+              id: "mock-3",
+              model_name: "gemini-1.5-pro",
+              vendor_id: "google",
+              icon: "Google",
+              description: "Google's latest multimodal sensation.",
+              tags: "text,vision,audio",
+              enable_groups: ["default"],
+              quota_types: [1],
+              sync_official: 1,
+              status: 1
+            },
+            {
+              id: "mock-4",
+              model_name: "midjourney-v6",
+              vendor_id: "midjourney",
+              icon: "Midjourney",
+              description: "Create beautiful images with text.",
+              tags: "image,generation",
+              enable_groups: ["art"],
+              quota_types: [1],
+              sync_official: 0,
+              status: 1
+            }
+          ];
+          count = 4;
+        }
+        // ----------------------------------------------
+
         setActivePage(data.page || page);
-        setModelCount(data.total || newPageData.length);
+        setModelCount(count);
         setModelFormat(newPageData);
 
         if (data.vendor_counts) {
@@ -350,10 +408,10 @@ export const useModelsData = () => {
     const rowStyle =
       record.status !== 1
         ? {
-            style: {
-              background: 'var(--semi-color-disabled-border)',
-            },
-          }
+          style: {
+            background: 'var(--semi-color-disabled-border)',
+          },
+        }
         : {};
 
     return {
