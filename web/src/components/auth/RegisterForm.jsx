@@ -32,6 +32,7 @@ import {
   onDiscordOAuthClicked,
   onCustomOAuthClicked,
 } from '../../helpers';
+import { RemoteAPI } from '../../helpers/remote-api';
 import Turnstile from 'react-turnstile';
 import {
   Button,
@@ -80,14 +81,13 @@ const RegisterForm = () => {
   const [inputs, setInputs] = useState({
     username: '',
     password: '',
-    password2: '',
     email: '',
     phone: '',
     verification_code: '',
     phone_verification_code: '',
     wechat_verification_code: '',
   });
-  const { username, password, password2, phone } = inputs;
+  const { username, password, phone } = inputs;
   const [userState, userDispatch] = useContext(UserContext);
   const [statusState] = useContext(StatusContext);
   const [turnstileEnabled, setTurnstileEnabled] = useState(false);
@@ -241,37 +241,65 @@ const RegisterForm = () => {
       showInfo('密码长度不得小于 8 位！');
       return;
     }
-    if (password !== password2) {
-      showInfo('两次输入的密码不一致');
-      return;
-    }
-    if (username && password) {
+    
+    if (username && password && phone) {
+      if (inputs.phone_verification_code === '') {
+        showInfo('请输入短信验证码！');
+        return;
+      }
+      
       if (turnstileEnabled && turnstileToken === '') {
         showInfo('请稍后几秒重试，Turnstile 正在检查用户环境！');
         return;
       }
+      
       setRegisterLoading(true);
       try {
+        // 1. 先验证验证码
+        const checkRes = await RemoteAPI.post(
+          '/api/v1/sys/check_phone_code',
+          {
+            phone: phone,
+            code: inputs.phone_verification_code // 添加验证码参数，假设后端需要
+          }
+        );
+        
+        // 验证码校验失败
+        if (!checkRes.data.data) {
+          showError(checkRes.data.msg || '验证码校验失败');
+          setRegisterLoading(false);
+          return;
+        }
+
+        // 2. 验证成功后，调用创建用户接口
         if (!affCode) {
           affCode = localStorage.getItem('aff');
         }
-        inputs.aff_code = affCode;
-        const res = await API.post(
-          `/api/user/register?turnstile=${turnstileToken}`,
-          inputs,
+        
+        const createRes = await RemoteAPI.post(
+          '/api/v1/user/create_user',
+          {
+            name: username,
+            account: username,
+            password: password,
+            phone: phone,
+          }
         );
-        const { success, message } = res.data;
-        if (success) {
+
+        if (createRes.data.code === 0) {
           navigate('/login');
           showSuccess('注册成功！');
         } else {
-          showError(message);
+          showError(createRes.data.msg || '注册失败');
         }
       } catch (error) {
+        console.error(error);
         showError('注册失败，请重试');
       } finally {
         setRegisterLoading(false);
       }
+    } else {
+      showInfo('请填写完整信息！');
     }
   }
 
@@ -301,6 +329,10 @@ const RegisterForm = () => {
   };
 
   const sendPhoneVerificationCode = async () => {
+    if (inputs.username === '') {
+      showInfo('请输入用户名');
+      return;
+    }
     if (inputs.phone === '') {
       showInfo('请输入手机号');
       return;
@@ -311,15 +343,19 @@ const RegisterForm = () => {
     }
     setVerificationCodeLoading(true);
     try {
-      const res = await API.get(
-        `/api/verification/sms?phone=${encodeURIComponent(inputs.phone)}&turnstile=${turnstileToken}`,
+      const res = await RemoteAPI.post(
+        `/api/v1/sys/send_phone_code`,
+        {
+          account: inputs.username,
+          phone: inputs.phone
+        }
       );
-      const { success, message } = res.data;
-      if (success) {
+      const { code, msg } = res.data;
+      if (code === 0) {
         showSuccess('短信验证码发送成功！');
         setDisablePhoneButton(true); // 发送成功后禁用按钮，开始倒计时
       } else {
-        showError(message);
+        showError(msg);
       }
     } catch (error) {
       showError('发送短信验证码失败，请重试');
@@ -623,18 +659,7 @@ const RegisterForm = () => {
                   size='large'
                 />
 
-                <Form.Input
-                  field='password2'
-                  label={t('确认密码')}
-                  placeholder={t('请再次输入密码')}
-                  name='password2'
-                  mode='password'
-                  onChange={(value) => handleChange('password2', value)}
-                  prefix={<IconLock className='text-gray-400 dark:text-gray-500' />}
-                  className='!rounded-xl !h-12 custom-auth-input register-input-field'
-                  noLabel={true}
-                  size='large'
-                />
+
 
                 {showEmailVerification && (
                   <>
