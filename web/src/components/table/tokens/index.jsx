@@ -373,7 +373,7 @@ function TokensPage() {
           />
         }
         actionsArea={
-          <div className='flex flex-col md:flex-row justify-between items-center gap-2 w-full'>
+          <div className='flex flex-col md:flex-row justify-between items-center gap-4 w-full'>
             <TokensActions
               selectedKeys={selectedKeys}
               setEditingToken={setEditingToken}

@@ -55,7 +55,7 @@ const TokensFilters = ({
       stopValidateWithError={false}
       className='w-full md:w-auto order-1 md:order-2'
     >
-      <div className='flex flex-col md:flex-row items-center gap-2 w-full md:w-auto'>
+      <div className='flex flex-col md:flex-row items-center gap-4 w-full md:w-auto'>
         <div className='relative w-full md:w-56'>
           <Form.Input
             field='searchKeyword'
@@ -63,7 +63,6 @@ const TokensFilters = ({
             placeholder={t('搜索关键字')}
             showClear
             pure
-            size='small'
           />
         </div>
 
@@ -74,17 +73,15 @@ const TokensFilters = ({
             placeholder={t('密钥')}
             showClear
             pure
-            size='small'
           />
         </div>
 
         <div className='flex gap-2 w-full md:w-auto'>
           <Button
-            type='tertiary'
+            type='primary'
             htmlType='submit'
             loading={loading || searching}
             className='flex-1 md:flex-initial md:w-auto'
-            size='small'
           >
             {t('查询')}
           </Button>
@@ -93,7 +90,6 @@ const TokensFilters = ({
             type='tertiary'
             onClick={handleReset}
             className='flex-1 md:flex-initial md:w-auto'
-            size='small'
           >
             {t('重置')}
           </Button>

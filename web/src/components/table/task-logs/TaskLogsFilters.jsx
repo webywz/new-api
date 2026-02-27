@@ -44,8 +44,8 @@ const TaskLogsFilters = ({
       trigger='change'
       stopValidateWithError={false}
     >
-      <div className='flex flex-col gap-2'>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2'>
+      <div className='flex flex-col gap-4 mb-4'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
           {/* 时间选择器 */}
           <div className='col-span-1 lg:col-span-2'>
             <Form.DatePicker
@@ -55,7 +55,6 @@ const TaskLogsFilters = ({
               placeholder={[t('开始时间'), t('结束时间')]}
               showClear
               pure
-              size='small'
               presets={DATE_RANGE_PRESETS.map((preset) => ({
                 text: t(preset.text),
                 start: preset.start(),
@@ -71,7 +70,6 @@ const TaskLogsFilters = ({
             placeholder={t('任务 ID')}
             showClear
             pure
-            size='small'
           />
 
           {/* 渠道 ID - 仅管理员可见 */}
@@ -82,7 +80,6 @@ const TaskLogsFilters = ({
               placeholder={t('渠道 ID')}
               showClear
               pure
-              size='small'
             />
           )}
         </div>
@@ -92,10 +89,9 @@ const TaskLogsFilters = ({
           <div></div>
           <div className='flex gap-2'>
             <Button
-              type='tertiary'
+              type='primary'
               htmlType='submit'
               loading={loading}
-              size='small'
             >
               {t('查询')}
             </Button>
@@ -110,14 +106,12 @@ const TaskLogsFilters = ({
                   }, 100);
                 }
               }}
-              size='small'
             >
               {t('重置')}
             </Button>
             <Button
               type='tertiary'
               onClick={() => setShowColumnSelector(true)}
-              size='small'
             >
               {t('列设置')}
             </Button>
