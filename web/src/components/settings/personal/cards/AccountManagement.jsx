@@ -74,7 +74,7 @@ const AccountManagement = ({
 }) => {
   const renderAccountInfo = (accountId, label) => {
     if (!accountId || accountId === '') {
-      return <span className='text-gray-500'>{t('未绑定')}</span>;
+      return <span className='text-slate-500 dark:text-slate-400'>{t('未绑定')}</span>;
     }
 
     const popContent = (
@@ -83,14 +83,14 @@ const AccountManagement = ({
           {accountId}
         </Typography.Paragraph>
         {label ? (
-          <div className='mt-1 text-[11px] text-gray-500'>{label}</div>
+          <div className='mt-1 text-[11px] text-slate-500 dark:text-slate-400'>{label}</div>
         ) : null}
       </div>
     );
 
     return (
       <Popover content={popContent} position='top' trigger='hover'>
-        <span className='block max-w-full truncate text-gray-600 hover:text-blue-600 cursor-pointer'>
+        <span className='block max-w-full truncate text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'>
           {accountId}
         </span>
       </Popover>
@@ -179,7 +179,7 @@ const AccountManagement = ({
           <Typography.Text className='text-lg font-medium'>
             {t('账户管理')}
           </Typography.Text>
-          <div className='text-xs text-gray-600'>
+          <div className='text-xs text-slate-600 dark:text-slate-400'>
             {t('账户绑定、安全设置和身份验证')}
           </div>
         </div>
@@ -209,10 +209,10 @@ const AccountManagement = ({
                       />
                     </div>
                     <div className='flex-1 min-w-0'>
-                      <div className='font-medium text-gray-900'>
+                      <div className='font-medium text-slate-900 dark:text-slate-100'>
                         {t('邮箱')}
                       </div>
-                      <div className='text-sm text-gray-500 truncate'>
+                      <div className='text-sm text-slate-500 dark:text-slate-400 truncate'>
                         {renderAccountInfo(
                           userState.user?.email,
                           t('邮箱地址'),
@@ -533,10 +533,10 @@ const AccountManagement = ({
                             )}
                           </div>
                           <div className='flex-1 min-w-0'>
-                            <div className='font-medium text-gray-900'>
+                            <div className='font-medium text-slate-900 dark:text-slate-100'>
                               {provider.name}
                             </div>
-                            <div className='text-sm text-gray-500 truncate'>
+                            <div className='text-sm text-slate-500 dark:text-slate-400 truncate'>
                               {bound
                                 ? renderAccountInfo(
                                   binding?.provider_user_id,
