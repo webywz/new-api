@@ -95,37 +95,25 @@ code {
   height: 44px !important;
 }
 
-#root
-  > section
-  > header
-  > section
-  > div
-  > div
-  > div
-  > div.semi-navigation-header-list-outer
-  > div.semi-navigation-list-wrapper
-  > ul
-  > div
-  > a
-  > li
-  > span {
+#root>section>header>section>div>div>div>div.semi-navigation-header-list-outer>div.semi-navigation-list-wrapper>ul>div>a>li>span {
   font-weight: 600 !important;
 }
 
-/* 自定义侧边栏样式 */
+/* ==================== 侧边栏样式 ==================== */
 .sidebar-container {
   height: 100%;
   display: flex;
   flex-direction: column;
   min-height: 0;
-  transition: width 0.3s ease;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   background: var(--semi-color-bg-0);
+  border-right: 1px solid var(--semi-color-border);
 }
 
 .sidebar-nav {
   flex: 1;
   width: 100%;
-  background: var(--semi-color-bg-0);
+  background: transparent;
   height: 100%;
   overflow-x: hidden;
   border-right: none;
@@ -134,40 +122,89 @@ code {
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  padding: 8px 0;
 }
 
 .sidebar-nav::-webkit-scrollbar {
   display: none;
 }
 
-/* 侧边栏导航项样式 */
+/* 导航项 — 加大行高，简约大气 */
 .sidebar-nav-item {
-  border-radius: 6px;
-  margin: 3px 8px;
+  border-radius: 8px !important;
+  margin: 4px 8px 8px 8px !important;
+  /* 增加下方 margin，拉开每个菜单行的距离 */
   transition: all 0.15s ease;
-  padding: 8px 12px;
+  padding: 16px 14px !important;
+  /* 强行扩大 padding */
+  min-height: 52px !important;
+  /* 打破 Semi-UI 默认 40px 高度限制 */
+  height: auto !important;
+  /* 允许高度扩展 */
+  position: relative;
+  cursor: pointer;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* 覆盖 Semi 内部元素的定高并居中 */
+.sidebar-nav-item .semi-navigation-item-inner {
+  height: auto !important;
+  min-height: unset !important;
+  padding: 0 !important;
+  width: 100%;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* 强制覆盖 Semi 本身的固定高并处理排版 */
+.sidebar-container .semi-navigation-item {
+  height: auto !important;
+  min-height: 52px !important;
+  margin-bottom: 8px !important;
+  display: flex !important;
+  align-items: center !important;
 }
 
 .sidebar-nav-item:hover {
-  background-color: rgba(var(--semi-blue-0), 0.08);
-  color: var(--semi-color-primary);
+  background-color: var(--semi-color-fill-0);
 }
 
+.sidebar-nav-item:hover .sidebar-icon-container {
+  color: var(--semi-color-text-0);
+}
+
+/* 选中态 — 干净蓝底 */
 .sidebar-nav-item-selected {
-  background-color: rgba(var(--semi-blue-0), 0.12);
-  color: var(--semi-color-primary);
-  font-weight: 500;
+  background-color: var(--semi-color-primary-light-default) !important;
 }
 
-/* 图标容器样式 */
+.sidebar-nav-item-selected .semi-navigation-item-text span {
+  color: var(--semi-color-primary) !important;
+  font-weight: 600 !important;
+}
+
+/* 选中态左侧指示条 — 纯色，无动画 */
+.sidebar-active-indicator {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 20px;
+  border-radius: 0 3px 3px 0;
+  background: var(--semi-color-primary);
+}
+
+/* 图标容器 */
 .sidebar-icon-container {
   width: 22px;
   height: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 10px;
-  transition: all 0.2s ease;
+  margin-right: 12px;
+  transition: color 0.15s ease;
 }
 
 .sidebar-sub-icon-container {
@@ -176,25 +213,25 @@ code {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 10px;
+  margin-right: 12px;
   margin-left: 1px;
-  transition: all 0.2s ease;
+  transition: color 0.15s ease;
 }
 
-/* 分割线样式 */
+/* 分割线 */
 .sidebar-divider {
-  margin: 4px 8px;
-  opacity: 0.15;
+  margin: 8px 16px;
+  opacity: 0.5;
 }
 
-/* 分组标签样式 */
+/* 分组标签 — 简约大写 */
 .sidebar-group-label {
-  padding: 4px 15px 8px;
-  color: var(--semi-color-text-2);
-  font-size: 12px;
+  padding: 16px 16px 8px;
+  color: var(--semi-color-text-3);
+  font-size: 11px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  opacity: 0.8;
+  letter-spacing: 1px;
 }
 
 /* 底部折叠按钮 */
@@ -209,9 +246,11 @@ code {
   position: sticky;
   bottom: 0;
   z-index: 10;
-  box-shadow: 0 -10px 10px -5px var(--semi-color-bg-0);
-  backdrop-filter: blur(4px);
-  border-top: 1px solid rgba(var(--semi-grey-0), 0.08);
+  border-top: 1px solid var(--semi-color-border);
+}
+
+.sidebar-collapse-button .semi-button {
+  transition: all 0.15s ease;
 }
 
 .sidebar-collapse-button-inner {
@@ -222,7 +261,7 @@ code {
   align-items: center;
   justify-content: center;
   background-color: var(--semi-color-fill-0);
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
 }
 
 .sidebar-collapse-icon-container {
@@ -232,22 +271,17 @@ code {
 
 /* 侧边栏区域容器 */
 .sidebar-section {
-  padding-top: 12px;
+  padding-top: 8px;
 }
 
 @media (max-width: 767px) {
   .sidebar-container {
-    background: var(--semi-color-bg-1);
+    background: var(--semi-color-bg-0);
     border-right: 1px solid var(--semi-color-border);
   }
 
-  .sidebar-nav {
-    background: var(--semi-color-bg-1);
-  }
-
   .sidebar-collapse-button {
-    background-color: var(--semi-color-bg-1);
-    box-shadow: 0 -10px 10px -5px var(--semi-color-bg-1);
+    background-color: var(--semi-color-bg-0);
   }
 }
 
@@ -356,7 +390,7 @@ code {
   overflow: hidden !important;
 }
 
-.semi-tabs-content .semi-tabs-pane > div {
+.semi-tabs-content .semi-tabs-pane>div {
   height: 100% !important;
 }
 
@@ -585,14 +619,12 @@ code {
 }
 
 .shine-text {
-  background: linear-gradient(
-    90deg,
-    currentColor 0%,
-    currentColor 40%,
-    rgba(255, 255, 255, 0.9) 50%,
-    currentColor 60%,
-    currentColor 100%
-  );
+  background: linear-gradient(90deg,
+      currentColor 0%,
+      currentColor 40%,
+      rgba(255, 255, 255, 0.9) 50%,
+      currentColor 60%,
+      currentColor 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -601,14 +633,12 @@ code {
 }
 
 .dark .shine-text {
-  background: linear-gradient(
-    90deg,
-    currentColor 0%,
-    currentColor 40%,
-    #facc15 50%,
-    currentColor 60%,
-    currentColor 100%
-  );
+  background: linear-gradient(90deg,
+      currentColor 0%,
+      currentColor 40%,
+      #facc15 50%,
+      currentColor 60%,
+      currentColor 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -701,11 +731,9 @@ html:not(.dark) .blur-ball-teal {
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background: radial-gradient(
-      circle at -5% -10%,
+  background: radial-gradient(circle at -5% -10%,
       var(--pb1) 0%,
-      transparent 60%
-    ),
+      transparent 60%),
     radial-gradient(circle at 105% -10%, var(--pb2) 0%, transparent 55%),
     radial-gradient(circle at 5% 110%, var(--pb3) 0%, transparent 55%),
     radial-gradient(circle at 105% 110%, var(--pb4) 0%, transparent 50%);

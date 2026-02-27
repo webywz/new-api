@@ -179,7 +179,7 @@ const SiderBar = ({ onNavigate = () => { } }) => {
     }
   }, [collapsed]);
 
-  // 选中高亮颜色（统一）
+  // 选中高亮颜色
   const SELECTED_COLOR = 'var(--semi-color-primary)';
 
   // 渲染自定义菜单项
@@ -204,6 +204,7 @@ const SiderBar = ({ onNavigate = () => { } }) => {
         }
         icon={
           <div className='sidebar-icon-container flex-shrink-0'>
+            {isSelected && <div className='sidebar-active-indicator' />}
             {getLucideIcon(item.itemKey, isSelected)}
           </div>
         }
