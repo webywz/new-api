@@ -89,8 +89,9 @@ const SiderBar = ({ onNavigate = () => { } }) => {
       },
     ];
 
-    // 根据配置过滤项目
+    // 根据配置过滤项目并剔除隐藏项
     const filteredItems = items.filter((item) => {
+      if (item.className === 'tableHiddle') return false;
       const configVisible = isModuleVisible('console', item.itemKey);
       return configVisible;
     });
@@ -117,8 +118,9 @@ const SiderBar = ({ onNavigate = () => { } }) => {
       },
     ];
 
-    // 根据配置过滤项目
+    // 根据配置过滤项目并剔除隐藏项
     const filteredItems = items.filter((item) => {
+      if (item.className === 'tableHiddle') return false;
       const configVisible = isModuleVisible('personal', item.itemKey);
       return configVisible;
     });
@@ -148,8 +150,9 @@ const SiderBar = ({ onNavigate = () => { } }) => {
       },
     ];
 
-    // 根据配置过滤项目
+    // 根据配置过滤项目并剔除隐藏项
     const filteredItems = items.filter((item) => {
+      if (item.className === 'tableHiddle') return false;
       const configVisible = isModuleVisible('admin', item.itemKey);
       return configVisible;
     });
@@ -259,7 +262,6 @@ const SiderBar = ({ onNavigate = () => { } }) => {
           {/* 控制台区域 */}
           {hasSectionVisibleModules('console') && (
             <>
-              <Divider className='sidebar-divider' />
               <div>
                 {!collapsed && (
                   <div className='sidebar-group-label'>{t('控制台')}</div>
