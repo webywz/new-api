@@ -43,7 +43,7 @@ const ModelCard = ({ model, vendorMap, t }) => {
                     );
                 }
                 return (
-                    <Tag key={`qt-${idx}`} color='white' size='small' shape='circle' className='model-card-quota-other font-medium border border-gray-200'>
+                    <Tag key={`qt-${idx}`} color='white' size='small' shape='circle' className='model-card-quota-other font-medium border border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200'>
                         {qt}
                     </Tag>
                 );

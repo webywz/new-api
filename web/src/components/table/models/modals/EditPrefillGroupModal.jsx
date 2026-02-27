@@ -136,7 +136,7 @@ const EditPrefillGroupModal = ({
       width={isMobile ? '100%' : 600}
       bodyStyle={{ padding: '0' }}
       footer={
-        <div className='flex justify-end bg-white'>
+        <div className='flex justify-end bg-white dark:bg-gray-800'>
           <Space>
             <Button
               theme='solid'
@@ -188,14 +188,14 @@ const EditPrefillGroupModal = ({
         >
           <div className='p-2'>
             {/* 基本信息 */}
-            <Card className='!rounded-2xl shadow-sm border-0'>
+            <Card className='!rounded-2xl shadow-sm border-0 dark:bg-gray-800'>
               <div className='flex items-center mb-2'>
                 <Avatar size='small' color='green' className='mr-2 shadow-md'>
                   <IconLayers size={16} />
                 </Avatar>
                 <div>
-                  <Text className='text-lg font-medium'>{t('基本信息')}</Text>
-                  <div className='text-xs text-gray-600'>
+                  <Text className='text-lg font-medium dark:text-gray-100'>{t('基本信息')}</Text>
+                  <div className='text-xs text-gray-600 dark:text-gray-400'>
                     {t('设置预填组的基本信息')}
                   </div>
                 </div>

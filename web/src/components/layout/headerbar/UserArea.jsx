@@ -58,7 +58,7 @@ const UserArea = ({
           position='bottomRight'
           getPopupContainer={() => dropdownRef.current}
           render={
-            <Dropdown.Menu className='!bg-semi-color-bg-overlay !border-semi-color-border !shadow-lg !rounded-lg dark:!bg-gray-700 dark:!border-gray-600'>
+            <Dropdown.Menu className='!bg-semi-color-bg-overlay !border-semi-color-border !shadow-lg !rounded-lg dark:!bg-gray-800 dark:!border-gray-700'>
               <Dropdown.Item
                 onClick={() => {
                   navigate('/console/personal');
@@ -120,7 +120,7 @@ const UserArea = ({
             <Button
               theme='borderless'
               type='tertiary'
-              className='flex items-center gap-1.5 !p-1 !rounded-full hover:!bg-semi-color-fill-1 dark:hover:!bg-gray-700 !bg-semi-color-fill-0 dark:!bg-semi-color-fill-1 dark:hover:!bg-semi-color-fill-2'
+              className='flex items-center gap-1.5 !p-1 !rounded-full hover:!bg-semi-color-fill-1 dark:hover:!bg-gray-700 !bg-semi-color-fill-0 dark:!bg-gray-800 dark:hover:!bg-gray-700'
             >
               <Avatar
                 size='extra-small'
@@ -150,7 +150,7 @@ const UserArea = ({
       'flex items-center justify-center !py-[10px] !px-1.5';
 
     const loginButtonSpecificStyling =
-      '!bg-semi-color-fill-0 dark:!bg-semi-color-fill-1 hover:!bg-semi-color-fill-1 dark:hover:!bg-gray-700 transition-colors';
+      '!bg-semi-color-fill-0 dark:!bg-gray-800 hover:!bg-semi-color-fill-1 dark:hover:!bg-gray-700 transition-colors';
     let loginButtonClasses = `${commonSizingAndLayoutClass} ${loginButtonSpecificStyling}`;
 
     let registerButtonClasses = `${commonSizingAndLayoutClass}`;

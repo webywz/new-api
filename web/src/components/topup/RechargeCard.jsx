@@ -165,31 +165,31 @@ const RechargeCard = ({
 
         {/* 数据统计小卡片 */}
         <div className='grid grid-cols-2 gap-4'>
-          <div className='bg-white border border-gray-100 rounded-2xl p-4 shadow-sm flex flex-col items-center justify-center hover:shadow-md transition-shadow'>
-            <div className='w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center mb-3 text-orange-500'>
+          <div className='bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm flex flex-col items-center justify-center hover:shadow-md transition-shadow'>
+            <div className='w-10 h-10 rounded-full bg-orange-50 dark:bg-orange-500/20 flex items-center justify-center mb-3 text-orange-500'>
               <TrendingUp size={20} />
             </div>
-            <div className='text-gray-500 text-xs mb-1'>{t('历史消耗')}</div>
-            <div className='text-gray-900 font-bold text-lg'>{renderQuota(userState?.user?.used_quota)}</div>
+            <div className='text-gray-500 dark:text-gray-400 text-xs mb-1'>{t('历史消耗')}</div>
+            <div className='text-gray-900 dark:text-gray-100 font-bold text-lg'>{renderQuota(userState?.user?.used_quota)}</div>
           </div>
-          <div className='bg-white border border-gray-100 rounded-2xl p-4 shadow-sm flex flex-col items-center justify-center hover:shadow-md transition-shadow'>
-            <div className='w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center mb-3 text-purple-500'>
+          <div className='bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm flex flex-col items-center justify-center hover:shadow-md transition-shadow'>
+            <div className='w-10 h-10 rounded-full bg-purple-50 dark:bg-purple-500/20 flex items-center justify-center mb-3 text-purple-500'>
               <BarChart2 size={20} />
             </div>
-            <div className='text-gray-500 text-xs mb-1'>{t('请求次数')}</div>
-            <div className='text-gray-900 font-bold text-lg'>{userState?.user?.request_count || 0}</div>
+            <div className='text-gray-500 dark:text-gray-400 text-xs mb-1'>{t('请求次数')}</div>
+            <div className='text-gray-900 dark:text-gray-100 font-bold text-lg'>{userState?.user?.request_count || 0}</div>
           </div>
         </div>
       </div>
 
       {/* 右侧：充值操作 (7列) */}
       <Card
-        className='lg:col-span-7 !rounded-3xl !border-0 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-fit'
+        className='lg:col-span-7 !rounded-3xl !border-0 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none dark:bg-gray-800 h-fit'
         bodyStyle={{ padding: '32px' }}
       >
         <div className='mb-8'>
-          <h2 className='text-2xl font-bold text-gray-900 mb-2'>{t('充值中心')}</h2>
-          <p className='text-gray-500 text-sm'>{t('安全、快速地为您的账户充值')}</p>
+          <h2 className='text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2'>{t('充值中心')}</h2>
+          <p className='text-gray-500 dark:text-gray-400 text-sm'>{t('安全、快速地为您的账户充值')}</p>
         </div>
 
         {statusLoading ? (
@@ -207,12 +207,12 @@ const RechargeCard = ({
                   {/* 金额选择 */}
                   <div>
                     <div className='flex justify-between items-center mb-4'>
-                      <label className='font-semibold text-gray-700'>{t('充值金额')}</label>
+                      <label className='font-semibold text-gray-700 dark:text-gray-300'>{t('充值金额')}</label>
                       {(() => {
                         const { symbol, rate, type } = getCurrencyConfig();
                         if (type === 'USD') return null;
                         return (
-                          <span className='text-xs bg-gray-100 px-2 py-1 rounded text-gray-500'>
+                          <span className='text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-gray-500 dark:text-gray-400'>
                             1 $ ≈ {rate.toFixed(2)} {symbol}
                           </span>
                         );
@@ -249,8 +249,8 @@ const RechargeCard = ({
                             className={`
                               relative cursor-pointer rounded-xl py-3 px-2 text-center transition-all duration-200 border
                               ${isSelected
-                                ? 'border-blue-600 bg-blue-600 text-white shadow-lg shadow-blue-500/30 transform scale-105'
-                                : 'border-gray-200 bg-white text-gray-700 hover:border-blue-300 hover:bg-blue-50'}
+                                ? 'border-blue-600 bg-blue-600 dark:bg-blue-600 dark:border-blue-600 text-white shadow-lg shadow-blue-500/30 transform scale-105'
+                                : 'border-gray-200 bg-white text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 hover:border-blue-300 dark:hover:border-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/30'}
                             `}
                           >
                             {hasDiscount && (
@@ -290,17 +290,17 @@ const RechargeCard = ({
                             getAmount(1);
                           }
                         }}
-                        className='!w-full !h-14 !rounded-xl !bg-gray-50 !border-transparent focus:!bg-white focus:!border-blue-500 !text-lg !font-medium !pl-4'
+                        className='!w-full !h-14 !rounded-xl !bg-gray-50 dark:!bg-gray-900/50 !border-transparent focus:!bg-white dark:focus:!bg-gray-800 focus:!border-blue-500 !text-lg !font-medium !pl-4 dark:!text-gray-100'
                         noLabel
                       />
                       <div className='absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2 pointer-events-none'>
-                        <span className='text-sm text-gray-400'>{t('预计支付')}</span>
+                        <span className='text-sm text-gray-400 dark:text-gray-500'>{t('预计支付')}</span>
                         <Skeleton
                           loading={showAmountSkeleton}
                           active
-                          placeholder={<div className='h-6 w-16 bg-gray-200 rounded'></div>}
+                          placeholder={<div className='h-6 w-16 bg-gray-200 dark:bg-gray-700 rounded'></div>}
                         >
-                          <span className='text-xl font-bold text-gray-900'>{renderAmount()}</span>
+                          <span className='text-xl font-bold text-gray-900 dark:text-gray-100'>{renderAmount()}</span>
                         </Skeleton>
                       </div>
                     </div>
@@ -311,18 +311,18 @@ const RechargeCard = ({
               {/* Creem 套餐 (keep simplistic) */}
               {enableCreemTopUp && creemProducts.length > 0 && (
                 <div>
-                  <label className='font-semibold text-gray-700 block mb-3'>{t('会员套餐')}</label>
+                  <label className='font-semibold text-gray-700 dark:text-gray-300 block mb-3'>{t('会员套餐')}</label>
                   <div className='flex gap-3 overflow-x-auto pb-2 scrollbar-hide'>
                     {creemProducts.map((product, index) => (
                       <div
                         key={index}
                         onClick={() => creemPreTopUp(product)}
-                        className='min-w-[140px] cursor-pointer rounded-xl border border-gray-200 p-3 hover:border-blue-500 hover:shadow-md transition-all bg-white flex flex-col justify-between h-24'
+                        className='min-w-[140px] cursor-pointer rounded-xl border border-gray-200 dark:border-gray-700 p-3 hover:border-blue-500 dark:hover:border-blue-500 hover:shadow-md transition-all bg-white dark:bg-gray-800 flex flex-col justify-between h-24'
                       >
-                        <div className='font-medium text-gray-900 truncate'>{product.name}</div>
+                        <div className='font-medium text-gray-900 dark:text-gray-100 truncate'>{product.name}</div>
                         <div>
-                          <div className='text-xs text-gray-500'>{t('额度')}: {product.quota}</div>
-                          <div className='text-blue-600 font-bold'>
+                          <div className='text-xs text-gray-500 dark:text-gray-400'>{t('额度')}: {product.quota}</div>
+                          <div className='text-blue-600 dark:text-blue-400 font-bold'>
                             {product.currency === 'EUR' ? '€' : '$'}{product.price}
                           </div>
                         </div>
@@ -335,7 +335,7 @@ const RechargeCard = ({
               {/* 支付方式 */}
               {(enableOnlineTopUp || enableStripeTopUp) && (
                 <div>
-                  <label className='font-semibold text-gray-700 block mb-3'>{t('支付方式')}</label>
+                  <label className='font-semibold text-gray-700 dark:text-gray-300 block mb-3'>{t('支付方式')}</label>
                   {payMethods && payMethods.length > 0 ? (
                     <div className='flex flex-wrap gap-3'>
                       {payMethods.map((payMethod) => {
@@ -350,10 +350,10 @@ const RechargeCard = ({
                             className={`
                               cursor-pointer rounded-full px-5 py-2.5 flex items-center gap-2 border transition-all duration-200
                               ${isSelected
-                                ? 'border-blue-600 bg-blue-50 text-blue-700 ring-2 ring-blue-100'
+                                ? 'border-blue-600 bg-blue-50 text-blue-700 ring-2 ring-blue-100 dark:bg-blue-900/30 dark:text-blue-300 dark:ring-blue-900/50'
                                 : disabled
-                                  ? 'border-gray-100 bg-gray-50 opacity-50 cursor-not-allowed'
-                                  : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'}
+                                  ? 'border-gray-100 bg-gray-50 dark:border-gray-700 dark:bg-gray-800/50 opacity-50 cursor-not-allowed'
+                                  : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700'}
                             `}
                           >
                             {payMethod.type === 'alipay' ? (
@@ -365,7 +365,7 @@ const RechargeCard = ({
                             ) : (
                               <CreditCard size={18} className={isSelected ? 'text-blue-600' : 'text-gray-500'} />
                             )}
-                            <span className={`font-medium text-sm ${isSelected ? 'text-blue-700' : 'text-gray-700'}`}>
+                            <span className={`font-medium text-sm ${isSelected ? 'text-blue-700 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300'}`}>
                               {payMethod.name}
                             </span>
                           </div>
@@ -373,7 +373,7 @@ const RechargeCard = ({
                       })}
                     </div>
                   ) : (
-                    <div className='text-gray-500 text-sm p-4 bg-gray-50 rounded-xl border border-dashed border-gray-300 text-center'>
+                    <div className='text-gray-500 dark:text-gray-400 text-sm p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-dashed border-gray-300 dark:border-gray-700 text-center'>
                       {t('暂无可用的支付方式')}
                     </div>
                   )}
@@ -396,10 +396,10 @@ const RechargeCard = ({
             </div>
           </Form>
         ) : (
-          <div className='text-center text-gray-500 py-16 bg-gray-50 rounded-2xl border border-dashed border-gray-200'>
+          <div className='text-center text-gray-500 dark:text-gray-400 py-16 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-dashed border-gray-200 dark:border-gray-700'>
             <div className='mb-4 flex justify-center'>
-              <div className='p-4 bg-white rounded-full shadow-sm'>
-                <Wallet size={32} className='text-gray-300' />
+              <div className='p-4 bg-white dark:bg-gray-800 rounded-full shadow-sm'>
+                <Wallet size={32} className='text-gray-300 dark:text-gray-600' />
               </div>
             </div>
             <p className='font-medium'>{t('暂无可用充值方式')}</p>
@@ -414,12 +414,12 @@ const RechargeCard = ({
       {/* 顶部标题栏 - 透明背景 */}
       <div className='flex items-end justify-between mb-6 px-1'>
         <div className='flex items-center gap-3'>
-          <div className='p-2 bg-blue-50 rounded-xl text-blue-600'>
+          <div className='p-2 bg-blue-50 dark:bg-blue-500/10 rounded-xl text-blue-600 dark:text-blue-400'>
             <Wallet size={24} />
           </div>
           <div>
-            <h1 className='text-2xl font-bold text-gray-900'>{t('我的钱包')}</h1>
-            <p className='text-gray-500 text-sm mt-0.5'>{t('管理您的账户余额和充值记录')}</p>
+            <h1 className='text-2xl font-bold text-gray-900 dark:text-gray-100'>{t('我的钱包')}</h1>
+            <p className='text-gray-500 dark:text-gray-400 text-sm mt-0.5'>{t('管理您的账户余额和充值记录')}</p>
           </div>
         </div>
 
@@ -452,7 +452,7 @@ const RechargeCard = ({
           <Button
             theme='borderless'
             type='tertiary'
-            className='topup-history-btn !bg-white hover:!bg-gray-50 !border !border-gray-200 !text-gray-600 !rounded-xl !px-4 !h-10 shadow-sm'
+            className='topup-history-btn !bg-white dark:!bg-gray-800 hover:!bg-gray-50 dark:hover:!bg-gray-700 !border !border-gray-200 dark:!border-gray-700 !text-gray-600 dark:!text-gray-300 !rounded-xl !px-4 !h-10 shadow-sm'
             icon={<Receipt size={16} />}
             onClick={onOpenHistory}
           >
