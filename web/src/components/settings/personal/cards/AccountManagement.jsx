@@ -592,7 +592,7 @@ const AccountManagement = ({
             <div className='space-y-6'>
               <Space vertical className='w-full'>
                 {/* 系统访问令牌 */}
-                {/* <Card className='!rounded-xl w-full'>
+                <Card className='!rounded-xl w-full'>
                   <div className='flex flex-col sm:flex-row items-start sm:justify-between gap-4'>
                     <div className='flex items-start w-full sm:w-auto'>
                       <div className='w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mr-4 flex-shrink-0'>
@@ -628,7 +628,7 @@ const AccountManagement = ({
                       {systemToken ? t('重新生成') : t('生成令牌')}
                     </Button>
                   </div>
-                </Card> */}
+                </Card>
 
                 {/* 密码管理 */}
                 <Card className='security-card !rounded-xl w-full border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors duration-300'>
