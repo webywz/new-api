@@ -48,13 +48,13 @@ export function isRoot() {
 
 export function getSystemName() {
   let system_name = localStorage.getItem('system_name');
-  if (!system_name) return 'New API';
+  if (!system_name) return '众联世纪';
   return system_name;
 }
 
 export function getLogo() {
   let logo = localStorage.getItem('logo');
-  if (!logo) return '/logo.png';
+  if (!logo) return 'https://aiplatformtest.laidianbanlv.cn/favicon.ico';
   return logo;
 }
 
