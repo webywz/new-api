@@ -28,6 +28,7 @@ import {
   getModelCategories,
   selectFilter,
 } from '../../../../helpers';
+import { RemoteAPI } from '../../../../helpers/remote-api';
 import { useIsMobile } from '../../../../hooks/common/useIsMobile';
 import {
   Button,
@@ -51,12 +52,14 @@ import {
 } from '@douyinfe/semi-icons';
 import { useTranslation } from 'react-i18next';
 import { StatusContext } from '../../../../context/Status';
+import { UserContext } from '../../../../context/User';
 
 const { Text, Title } = Typography;
 
 const EditTokenModal = (props) => {
   const { t } = useTranslation();
   const [statusState, statusDispatch] = useContext(StatusContext);
+  const [userState, userDispatch] = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const isMobile = useIsMobile();
   const formApiRef = useRef(null);
@@ -206,6 +209,34 @@ const EditTokenModal = (props) => {
     return result;
   };
 
+  const notifyRemoteAPI = async (tokenName) => {
+    if (!userState?.user?.id || !userState?.user?.username) return;
+    try {
+      // 稍微延迟以确保数据已写入并可查询
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      // 使用 keyword 精确匹配刚创建的令牌名称
+      const res = await API.get(
+        `/api/token/?p=0&size=1&keyword=${encodeURIComponent(tokenName)}`,
+      );
+      const { success, data } = res.data;
+      if (success && data?.items?.length > 0) {
+        const token = data.items[0];
+        // 二次校验名称
+        if (token.name === tokenName) {
+          await RemoteAPI.post('/api/v1/user_keys/add_user_key', {
+            new_api_user_id: userState.user.id,
+            account: userState.user.username,
+            key: token.key,
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Failed to sync token to remote API:', error);
+      // 不阻断用户流程，仅记录错误
+    }
+  };
+
   const submit = async (values) => {
     setLoading(true);
     if (isEdit) {
@@ -263,6 +294,7 @@ const EditTokenModal = (props) => {
         const { success, message } = res.data;
         if (success) {
           successCount++;
+          await notifyRemoteAPI(localInputs.name);
         } else {
           showError(t(message));
           break;
